@@ -34,6 +34,7 @@ public class WebController {
 		event.setEndTime(16, 50, 05);
 		
 		return event.toString();
+	}
 
 	//test Gson
 	@RequestMapping(value = "/gson", method = RequestMethod.GET)
