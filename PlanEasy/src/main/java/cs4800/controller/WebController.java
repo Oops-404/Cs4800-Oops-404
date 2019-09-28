@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import cs4800.event.Event;
 
 
 @RestController
@@ -20,5 +20,17 @@ public class WebController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	String homePage(){
 		return "This is the home page";
+	}
+	
+	@RequestMapping(value = "/test/event", method = RequestMethod.GET)
+	String eventTest() {
+		Event event = new Event("test event");
+		
+		event.setStartDate(29, 06, 2019);
+		event.setStartTime(14, 30, 00);
+		event.setEndDate(30, 06, 2019);
+		event.setEndTime(16, 50, 05);
+		
+		return event.toString();
 	}
 }
