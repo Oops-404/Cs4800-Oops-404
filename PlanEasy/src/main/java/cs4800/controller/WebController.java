@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import cs4800.calendar.Calendar;
 import cs4800.event.Event;
 import com.google.gson.Gson;
+import java.util.List;
+import java.time.DayOfWeek;
 
 @RestController
 public class WebController {
@@ -24,16 +26,11 @@ public class WebController {
 	}
 	
 
-	@RequestMapping(value = "/test/event", method = RequestMethod.GET)
-	String eventTest() {
-		Event event = new Event("test event");
-		
-		event.setStartDate(29, 06, 2019);
-		event.setStartTime(14, 30, 00);
-		event.setEndDate(30, 06, 2019);
-		event.setEndTime(16, 50, 05);
-		
-		return event.toString();
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	List<DayOfWeek> eventTest() {
+		Calendar cal = new Calendar();
+		cal.setMonth(6);
+		return cal.getCalendarMonth();
 	}
 
 	//test Gson
