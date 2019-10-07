@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import cs4800.event.Event;
+import cs4800.user.User;
 import com.google.gson.Gson;
 
 @RestController
