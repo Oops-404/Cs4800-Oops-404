@@ -1,33 +1,33 @@
 package cs4800.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import com.mongodb.MongoException;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 /*
- * Database class
+ * Test the connection to the MongoDB database server
  * 
  */
-public class Database {
+public class DatabaseConnectionTest {
 
 	public static void main(String[] args) {
+				
+		// connection string URI
+		String URI = "mongodb+srv://admin:Oops!404@oops404-ijzpy.azure.mongodb.net/test?retryWrites=true&w=majority";
+		MongoClient mongo = null;
 		
-        // try connection to database
-        try (Connection connect = DriverManager.getConnection(
-                "jdbc:postgresql://127.0.0.1:5432/postgres", "postgres", "Solar0221")) {
-
-            if (connect != null) { 
-                System.out.println("Connected to the database :)");
-            } else {
-                System.out.println("Failed to connect to the database :(");
-            }
-
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
+        try {
+        	mongo = new MongoClient(new MongoClientURI(URI));
+ 
+            System.out.println("Connected to MongoDB :)");
+            
+        } catch (MongoException e) {
+        	System.out.println("Not connected to MongoDB :(");
             e.printStackTrace();
+        } finally {
+            if (mongo!=null) {
+            	mongo.close();
+            }
         }
-        
 	}
-	
 }
