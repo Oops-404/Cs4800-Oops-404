@@ -1,5 +1,6 @@
 package cs4800.event;
 
+import java.time.Month;
 
 public interface EventInterface {
 	
@@ -32,7 +33,7 @@ public interface EventInterface {
 	 * @param start month
 	 * @param start year
 	 */
-	public void setStartDate(int day, int month, int year);
+	public void setStartDate(int day, Month month, int year);
 	
 	
 	/*
@@ -42,7 +43,7 @@ public interface EventInterface {
 	 * @param end month
 	 * @param end year
 	 */
-	public void setEndDate(int day, int month, int year);
+	public void setEndDate(int day, Month month, int year);
 
 	/*
 	 * Sets the start time for the event

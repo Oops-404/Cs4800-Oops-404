@@ -1,26 +1,31 @@
 package cs4800.event;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 /*
  * This is an implementation of {@link EventInterface} 
  * Event class that will hold all of the
  * information of an event
+ * 
+ * Time will be saved in a 24 hour format
  */
 
 public class Event implements EventInterface {
 
 	
 	//Start date split into its components for easier manipulation
-	private int startDay = 0;
-	private int startMonth = 0;
-	private int startYear = 0;
+	private int startDay = 1;
+	private Month startMonth = Month.JANUARY;
+	private int startYear = 2019;
 	
 	// Start date as a string for easier output
 	private String startDate = null;
 	
 	//End date split into its components for easier manipulation
-	private int endDay = 0;
-	private int endMonth = 0;
-	private int endYear = 0;
+	private int endDay = 1;
+	private Month endMonth = Month.JANUARY;
+	private int endYear = 2019;
 	
 	//End date as a string for easier output
 	private String endDate = null;
@@ -74,7 +79,7 @@ public class Event implements EventInterface {
 	@Override
 	public int[] getStartDate() {
 
-		int[] date = {startDay, startMonth, startYear};
+		int[] date = {startDay, startMonth.getValue(), startYear};
 		
 		return date;
 	}
@@ -82,7 +87,7 @@ public class Event implements EventInterface {
 	@Override
 	public int[] getEndDate() {
 
-		int[] date = {endDay, endMonth, endYear};
+		int[] date = {endDay, endMonth.getValue(), endYear};
 		
 		return date;
 	}
@@ -105,22 +110,40 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	public void setStartDate(int day, int month, int year) {
+	public void setStartDate(int day, Month month, int year) {
 		
 		this.startDay = day;
 		this.startMonth = month;
 		this.startYear = year;
+		
+		if(day > month.length(LocalDate.of(startYear, month, startDay).isLeapYear())) {
+			System.err.println("Day is out of bounds setting to end of month");
+			this.startDay = month.length(LocalDate.of(startDay, month.getValue(), startYear).isLeapYear());
+		}
+		else if(day < 0 ) {
+			System.err.println("Day is out of bounds setting to start of month");
+			this.startDay = 1;
+		}
 		
 		this.startDate = this.compileStartDate();
 		
 	}
 	
 	@Override
-	public void setEndDate(int day, int month, int year) {
+	public void setEndDate(int day, Month month, int year) {
 		
 		this.endDay = day;
 		this.endMonth = month;
 		this.endYear = year;
+		
+		if(day > month.length(LocalDate.of(startYear, month.getValue(), startDay).isLeapYear())) {
+			System.err.println("Day is out of bounds setting to end of month");
+			this.startDay = month.length(LocalDate.of(startDay, month.getValue(), startYear).isLeapYear());
+		}
+		else if(day < 0 ) {
+			System.err.println("Day is out of bounds setting to start of month");
+			this.startDay = 1;
+		}
 		
 		this.endDate = this.compileEndDate();
 	}
@@ -132,6 +155,33 @@ public class Event implements EventInterface {
 		this.startMinute = min;
 		this.startSecond = sec;
 		
+		if(startHour > 23 ) {
+			System.err.println("Start hour is too large setting to 23");
+			this.startHour = 23;
+		}
+		else if(startHour < 0) {
+			System.err.println("Start hour is too small setting to 0");
+			this.startHour = 0;
+		}
+		
+		if(startMinute > 59) {
+			System.err.println("Start minute is too large setting to 59");
+			this.startMinute = 59;
+		}
+		else if(startMinute < 0) {
+			System.err.println("Start minute is too small setting to 0");
+			this.startMinute = 0;
+		}
+		
+		if(startSecond > 59) {
+			System.err.println("Start second is too large setting to 59");
+			this.startSecond = 59;
+		}
+		else if(startSecond < 0) {
+			System.err.println("Start second is too small setting to 0");
+			this.startSecond = 0;
+		}
+		
 		this.startTime = this.compileStartTime();
 	}
 
@@ -141,6 +191,33 @@ public class Event implements EventInterface {
 		this.endHour = hour;
 		this.endMinute = min;
 		this.endSecond = sec;
+		
+		if(endHour > 23 ) {
+			System.err.println("End hour is too large setting to 23");
+			this.endHour = 23;
+		}
+		else if(endHour < 0) {
+			System.err.println("End hour is too small setting to 0");
+			this.endHour = 0;
+		}
+		
+		if(endMinute > 59) {
+			System.err.println("End minute is too large setting to 59");
+			this.endMinute = 59;
+		}
+		else if(endMinute < 0) {
+			System.err.println("End minute is too small setting to 0");
+			this.endMinute = 0;
+		}
+		
+		if(endSecond > 59) {
+			System.err.println("End second is too large setting to 59");
+			this.endSecond = 59;
+		}
+		else if(endSecond < 0) {
+			System.err.println("End second is too small setting to 0");
+			this.endSecond = 0;
+		}
 		
 		this.endTime = this.compileEndTime();
 	}
@@ -159,7 +236,7 @@ public class Event implements EventInterface {
 	 * @return start date as a string
 	 */
 	private String compileStartDate() {
-		String startDate = (this.startMonth + "/" + this.startDay + 
+		String startDate = (this.startMonth.getValue() + "/" + this.startDay + 
 				"/" + this.startYear);
 		
 		return startDate;
@@ -171,7 +248,7 @@ public class Event implements EventInterface {
 	 * @return end date as a string
 	 */
 	private String compileEndDate() {
-		String endDate = (this.endMonth + "/" + this.endDay + 
+		String endDate = (this.endMonth.getValue() + "/" + this.endDay + 
 				"/" + this.endYear);
 		
 		return endDate;
