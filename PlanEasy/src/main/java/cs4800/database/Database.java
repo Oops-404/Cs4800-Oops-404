@@ -1,9 +1,11 @@
 package cs4800.database;
 
-import static com.mongodb.client.model.Filters.*; 
+import static com.mongodb.client.model.Filters.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bson.Document;
-import org.jboss.logging.Logger;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -19,7 +21,7 @@ import com.mongodb.client.MongoDatabase;
  */
 public class Database {
 	
-	private static final Logger log = Logger.getLogger(Database.class);
+	private static final Logger log = Logger.getLogger(Database.class.getName());
 
 	private static String URI = "mongodb+srv://admin:Oops!404@oops404-ijzpy.azure.mongodb.net/test?retryWrites=true&w=majority";
 	private static MongoClient mongoClient = null;
@@ -40,7 +42,7 @@ public class Database {
 		} 
 		
 		catch (MongoException e) {
-        	log.error("Not connected to MongoDB :(", e);
+        	log.log(Level.SEVERE, "Not connected to MongoDB :(", e);
 		}
 	}
 	

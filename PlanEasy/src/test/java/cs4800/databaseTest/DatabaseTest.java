@@ -2,8 +2,10 @@ package cs4800.databaseTest;
 
 import static com.mongodb.client.model.Filters.eq; // FILTERS!!!!
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.bson.Document;
-import org.jboss.logging.Logger;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -13,19 +15,23 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
+
 /*
- * Database class
+ * Database testing class
  * 
  */
 public class DatabaseTest {
 	
-	private static final Logger log = Logger.getLogger(DatabaseTest.class);
+	private static final Logger log = Logger.getLogger(DatabaseTest.class.getName());
 	
 	private static String URI = "mongodb+srv://admin:Oops!404@oops404-ijzpy.azure.mongodb.net/test?retryWrites=true&w=majority";
 	private static MongoClient mongoClient = null;
 	private static MongoDatabase db = null;
 	
-	public DatabaseTest() {	}
+	public DatabaseTest() {	
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+	}
 	
 	/**
 	 * Initialize connection to MongoDB server and access Oops404 database
@@ -41,7 +47,7 @@ public class DatabaseTest {
 		} 
 		
 		catch (MongoException e) {
-        	log.error("Not connected to MongoDB :(", e);
+        	log.log(Level.SEVERE, "Not connected to MongoDB :(", e);
 		}
 	}
 		
@@ -77,7 +83,7 @@ public class DatabaseTest {
 		
 		log.info("Getting test collection");
 		MongoCollection<Document> test = db.getCollection("test");
-				                
+				
         log.info("Fetching all records in the test collection");
         FindIterable<Document> fi = test.find();
         MongoCursor<Document> cursor = fi.iterator();
@@ -96,10 +102,10 @@ public class DatabaseTest {
 		DatabaseTest database = new DatabaseTest();
 		database.connect();
 		
-		//database.test(); 
+		database.test(); 
 		
-		database.selectEventByLocationTest("Cal poly Pomona");
-		database.selectEventByLocationTest("home");
+		database.selectEventByLocationTest("Cal Poly Pomona");
+		database.selectEventByLocationTest("home");	
 	}
 	
 }
