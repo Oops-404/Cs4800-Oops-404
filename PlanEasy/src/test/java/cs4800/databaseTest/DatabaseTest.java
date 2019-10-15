@@ -1,6 +1,6 @@
 package cs4800.databaseTest;
 
-import static com.mongodb.client.model.Filters.eq; // FILTERS!!!!
+import static com.mongodb.client.model.Filters.*; // FILTERS!!!!
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ import com.mongodb.client.MongoDatabase;
 
 
 /*
- * Database testing class
+ * Database testing class to test all functions with a test data set
  * 
  */
 public class DatabaseTest {
@@ -28,13 +28,16 @@ public class DatabaseTest {
 	private static MongoClient mongoClient = null;
 	private static MongoDatabase db = null;
 	
+	private static MongoCollection<Document> test = null;
+	
 	public DatabaseTest() {	
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 	}
 	
 	/**
-	 * Initialize connection to MongoDB server and access Oops404 database
+	 * Initialize connection to MongoDB server, access Oops404 database, 
+	 * and initialize the test collection in the database
 	 * 
 	 */
 	public void connect() {
@@ -44,27 +47,27 @@ public class DatabaseTest {
 			log.info("Connected to MongoDB :)");
 			log.info("Accessing Oops404 database");
 			db = mongoClient.getDatabase("Oops404");
+			test = db.getCollection("test");
 		} 
 		
 		catch (MongoException e) {
         	log.log(Level.SEVERE, "Not connected to MongoDB :(", e);
 		}
 	}
-		
+	
 	/**
 	 * Query test events by their location
-	 * @param enterLocation location entered by user
+	 * @param userEntered string entered by user
 	 */
-	public void selectEventByLocationTest(String enterLocation) {
+	public void selectEventByLocationTest(String userEntered) {
 		
-		log.info("User has entered: " + enterLocation);
-		
-		log.info("Getting test collection");
-		MongoCollection<Document> test = db.getCollection("test");
+		log.info("User has entered: " + userEntered);
+		log.info("Getting test collection..");
 
-        log.info("Fetching all records in the test collection where location is " + enterLocation);
-        FindIterable<Document> fi = test.find(eq("location", enterLocation));
-        MongoCursor<Document> cursor = fi.iterator();
+        log.info("Fetching all records in the test collection where location contains: " + userEntered);
+        // find(regex("field name", "pattern", "options"));
+        FindIterable<Document> results = test.find(regex("location", userEntered, "i")); // i for case-insensitive
+        MongoCursor<Document> cursor = results.iterator();
         
         try {
             while(cursor.hasNext()) {               
@@ -72,7 +75,31 @@ public class DatabaseTest {
             }
         } finally {
             cursor.close();
-            log.info("End of records where location is " + enterLocation);
+            log.info("End of records where location contains: " + userEntered);
+        }     
+	}
+	
+	/**
+	 * Query test events by what the event name contains
+	 * @param userEntered string entered by user
+	 */
+	public void selectEventByNameTest(String userEntered) {
+		
+		log.info("User has entered: " + userEntered);
+		log.info("Getting test collection..");
+
+        log.info("Fetching all records in the test collection where test event name contains: " + userEntered);
+        // find(regex("field name", "pattern", "options"));
+        FindIterable<Document> results = test.find(regex("name", userEntered, "i")); // i for case-insensitive
+        MongoCursor<Document> cursor = results.iterator();
+        
+        try {
+            while(cursor.hasNext()) {               
+                log.info(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+            log.info("End of records where test event name contains: " + userEntered);
         }     
 	}
 	
@@ -81,8 +108,7 @@ public class DatabaseTest {
 	 */
 	public void test() {
 		
-		log.info("Getting test collection");
-		MongoCollection<Document> test = db.getCollection("test");
+		log.info("Getting test collection...");
 				
         log.info("Fetching all records in the test collection");
         FindIterable<Document> fi = test.find();
@@ -105,7 +131,11 @@ public class DatabaseTest {
 		database.test(); 
 		
 		database.selectEventByLocationTest("Cal Poly Pomona");
+		database.selectEventByLocationTest("cal poly");
 		database.selectEventByLocationTest("home");	
+		
+		database.selectEventByNameTest("Fair");
+		database.selectEventByNameTest("fair");
 	}
 	
 }
