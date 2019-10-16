@@ -3,6 +3,11 @@ package cs4800.event;
 import java.time.LocalDate;
 import java.time.Month;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /*
  * This is an implementation of {@link EventInterface} 
  * Event class that will hold all of the
@@ -11,42 +16,64 @@ import java.time.Month;
  * Time will be saved in a 24 hour format
  */
 
+@Document
 public class Event implements EventInterface {
 
+	@Id
+	private ObjectId _id; // primary key
 	
 	//Start date split into its components for easier manipulation
+	@Field(value = "start_day")
 	private int startDay = 1;
+	@Field(value = "start_month")
 	private Month startMonth = Month.JANUARY;
+	@Field(value = "start_year")
 	private int startYear = 2019;
 	
+	@Field(value = "location")
+	private String location = null;
+	
 	// Start date as a string for easier output
+	@Field(value = "start_date")
 	private String startDate = null;
 	
 	//End date split into its components for easier manipulation
+	@Field(value = "end_day")
 	private int endDay = 1;
+	@Field(value = "end_month")
 	private Month endMonth = Month.JANUARY;
+	@Field(value = "end_year")
 	private int endYear = 2019;
 	
 	//End date as a string for easier output
+	@Field(value = "end_date")
 	private String endDate = null;
 	
 	//Start time split into its components for easier manipulation
+	@Field(value = "start_hour")
 	private int startHour = 0;
+	@Field(value = "start_minute")
 	private int startMinute = 0;
+	@Field(value = "start_second")
 	private int startSecond = 0;
 	
 	//Start time as a string for easier output
 	private String startTime = null;
 	
 	//End time split into its components for easier manipulation
+	@Field(value = "end_hour")
 	private int endHour = 0;
+	@Field(value = "end_minute")
 	private int endMinute = 0;
+	@Field(value = "end_second")
 	private int endSecond = 0;
 	
 	//End time as a string for easier output
+	@Field(value = "end_time")
 	private String endTime = null;
 	
 	//Name of the event
+	@Field(value = "name")
 	private String name = null;
 	
 	
@@ -56,6 +83,20 @@ public class Event implements EventInterface {
 	public Event(String name) {
 		
 		this.name = name;
+	}
+	
+	@Override
+	public ObjectId get_id() {
+		
+		return _id;
+		
+	}
+	
+	@Override
+	public void set_id(ObjectId _id) {
+		
+		this._id = _id;
+		
 	}
 	
 	@Override
@@ -222,6 +263,8 @@ public class Event implements EventInterface {
 		this.endTime = this.compileEndTime();
 	}
 	
+	
+	
 	@Override
 	public String toString() {
 		String DateAndTime = ("Date: " + startDate + "   Time: " + startTime + "\n" +
@@ -275,5 +318,25 @@ public class Event implements EventInterface {
 		
 		return startTime;
 	}
+
+	/*
+	 * Get location of event
+	 * 
+	 * @return event location
+	 */
+	public String getLocation() {
+		// TODO Auto-generated method stub
+		return location;
+	}
+	
+	/*
+	 * Set location of event
+	 * 
+	 * @param event location
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
 
 }

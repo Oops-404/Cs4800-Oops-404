@@ -30,10 +30,7 @@ public class DatabaseTest {
 	
 	private static MongoCollection<Document> test = null;
 	
-	public DatabaseTest() {	
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
-		mongoLogger.setLevel(Level.SEVERE);
-	}
+	public DatabaseTest() {	}
 	
 	/**
 	 * Initialize connection to MongoDB server, access Oops404 database, 
@@ -111,8 +108,8 @@ public class DatabaseTest {
 		log.info("Getting test collection...");
 				
         log.info("Fetching all records in the test collection");
-        FindIterable<Document> fi = test.find();
-        MongoCursor<Document> cursor = fi.iterator();
+        FindIterable<Document> results = test.find();
+        MongoCursor<Document> cursor = results.iterator();
         try {
             while(cursor.hasNext()) {               
                 log.info(cursor.next().toJson());

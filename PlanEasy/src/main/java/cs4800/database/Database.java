@@ -24,7 +24,7 @@ public class Database {
 	
 	private static final Logger log = Logger.getLogger(Database.class.getName());
 
-	private static String URI = "mongodb+srv://admin:Oops!404@oops404-ijzpy.azure.mongodb.net/Event?retryWrites=true&w=majority";
+	private static String URI = "mongodb+srv://admin:Oops!404@oops404-ijzpy.azure.mongodb.net/test?retryWrites=true&w=majority";
 	private static MongoClient mongoClient = null;
 	private static MongoDatabase db = null;
 	

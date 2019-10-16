@@ -2,7 +2,23 @@ package cs4800.event;
 
 import java.time.Month;
 
+import org.bson.types.ObjectId;
+
 public interface EventInterface {
+	
+	/*
+	 * Set unique event id
+	 * 
+	 * @param id of event
+	 */
+	void set_id(ObjectId _id);
+	
+	/*
+	 * Get unique event id
+	 * 
+	 * @return id of event
+	 */
+	ObjectId get_id();
 	
 	/*
 	 * Get the name of the event
@@ -25,6 +41,15 @@ public interface EventInterface {
 	 */
 	public void deleteEvent();
 	
+	/*
+	 * 
+	 */
+	public void setLocation(String location);
+	
+	/*
+	 * 
+	 */
+	public String getLocation();
 	
 	/*
 	 * Sets the start date of the event
@@ -97,6 +122,5 @@ public interface EventInterface {
 	 * 		   [1] being minute and [2] being second
 	 */
 	public int[] getEndTime();
-	
 
 }
