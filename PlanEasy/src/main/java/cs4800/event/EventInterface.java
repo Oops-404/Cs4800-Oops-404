@@ -1,5 +1,6 @@
 package cs4800.event;
 
+import java.time.LocalDate;
 import java.time.Month;
 
 public interface EventInterface {
@@ -70,7 +71,7 @@ public interface EventInterface {
 	 * @return an int[] with [0] being day
 	 * 		   [1] being month and [2] being year
 	 */
-	public int[] getStartDate();
+	public LocalDate getStartDate();
 	
 	
 	/*
@@ -79,7 +80,7 @@ public interface EventInterface {
 	 * @return an int[] with [0] being day
 	 * 		   [1] being month and [2] being year
 	 */
-	public int[] getEndDate();
+	public LocalDate getEndDate();
 	
 	
 	/*

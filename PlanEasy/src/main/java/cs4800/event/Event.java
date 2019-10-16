@@ -77,17 +77,17 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	public int[] getStartDate() {
+	public LocalDate getStartDate() {
 
-		int[] date = {startDay, startMonth.getValue(), startYear};
+		LocalDate date = LocalDate.of(startYear, startMonth, startDay);
 		
 		return date;
 	}
 
 	@Override
-	public int[] getEndDate() {
+	public LocalDate getEndDate() {
 
-		int[] date = {endDay, endMonth.getValue(), endYear};
+		LocalDate date = LocalDate.of(endDay, endMonth, endYear);
 		
 		return date;
 	}
