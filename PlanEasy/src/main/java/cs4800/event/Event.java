@@ -85,6 +85,77 @@ public class Event implements EventInterface {
 		this.name = name;
 	}
 	
+	public Event(String name, LocalDate startDate, LocalDate endDate) {
+		
+		this.name = name;
+		
+		this.startYear = startDate.getYear();
+		this.startMonth = startDate.getMonth();
+		this.startDay = startDate.getDayOfMonth();
+		
+		this.endYear = endDate.getYear();
+		this.endMonth = endDate.getMonth();
+		this.endDay = startDate.getDayOfMonth();
+		
+		this.compileStartDate();
+		this.compileEndDate();
+	}
+	
+	public Event(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime) {
+		
+		this.name = name;
+		
+		this.startYear = startDate.getYear();
+		this.startMonth = startDate.getMonth();
+		this.startDay = startDate.getDayOfMonth();
+		
+		this.endYear = endDate.getYear();
+		this.endMonth = endDate.getMonth();
+		this.endDay = startDate.getDayOfMonth();
+		
+		String start[] = startTime.split(":");
+		String end[] = endTime.split(":");
+		
+		this.startHour = Integer.parseInt(start[0]);
+		this.startMinute = Integer.parseInt(start[1]);
+		this.startSecond = Integer.parseInt(start[2]);
+		
+		this.endHour = Integer.parseInt(end[0]);
+		this.endMinute = Integer.parseInt(end[1]);
+		this.endSecond = Integer.parseInt(end[2]);
+		
+		this.compileStartDate();
+		this.compileEndDate();
+		this.compileStartTime();
+		this.compileEndTime();
+	}
+	
+	public Event(String name, LocalDate startDate, LocalDate endDate, int[] startTime, int[] endTime) {
+		
+		this.name = name;
+		
+		this.startYear = startDate.getYear();
+		this.startMonth = startDate.getMonth();
+		this.startDay = startDate.getDayOfMonth();
+		
+		this.endYear = endDate.getYear();
+		this.endMonth = endDate.getMonth();
+		this.endDay = startDate.getDayOfMonth();
+
+		this.startHour = startTime[0];
+		this.startMinute = startTime[1];
+		this.startSecond = startTime[2];
+		
+		this.endHour = endTime[0];
+		this.endMinute = endTime[1];
+		this.endSecond = endTime[2];
+		
+		this.compileStartDate();
+		this.compileEndDate();
+		this.compileStartTime();
+		this.compileEndTime();
+	}
+	
 	@Override
 	public ObjectId get_id() {
 		
@@ -151,17 +222,17 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	public void setStartDate(int day, Month month, int year) {
+	public void setStartDate(LocalDate start) {
 		
-		this.startDay = day;
-		this.startMonth = month;
-		this.startYear = year;
+		this.startDay = start.getDayOfMonth();
+		this.startMonth = start.getMonth();
+		this.startYear = start.getYear();
 		
-		if(day > month.length(LocalDate.of(startYear, month, startDay).isLeapYear())) {
+		if(start.getDayOfMonth() > start.getMonth().length(start.isLeapYear())) {
 			System.err.println("Day is out of bounds setting to end of month");
-			this.startDay = month.length(LocalDate.of(startDay, month.getValue(), startYear).isLeapYear());
+			this.startDay = start.getMonth().length(start.isLeapYear());
 		}
-		else if(day < 0 ) {
+		else if(start.getDayOfMonth() < 0 ) {
 			System.err.println("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
@@ -171,17 +242,17 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
-	public void setEndDate(int day, Month month, int year) {
+	public void setEndDate(LocalDate end) {
 		
-		this.endDay = day;
-		this.endMonth = month;
-		this.endYear = year;
+		this.endDay = end.getDayOfMonth();
+		this.endMonth = end.getMonth();
+		this.endYear = end.getYear();
 		
-		if(day > month.length(LocalDate.of(startYear, month.getValue(), startDay).isLeapYear())) {
+		if(end.getDayOfMonth() > end.getMonth().length(end.isLeapYear())) {
 			System.err.println("Day is out of bounds setting to end of month");
-			this.startDay = month.length(LocalDate.of(startDay, month.getValue(), startYear).isLeapYear());
+			this.startDay = end.getMonth().length(end.isLeapYear());
 		}
-		else if(day < 0 ) {
+		else if(end.getDayOfMonth() < 0 ) {
 			System.err.println("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
@@ -190,11 +261,11 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	public void setStartTime(int hour, int min, int sec) {
+	public void setStartTime(int start[]) {
 		
-		this.startHour = hour;
-		this.startMinute = min;
-		this.startSecond = sec;
+		this.startHour = start[0];
+		this.startMinute = start[1];
+		this.startSecond = start[2];
 		
 		if(startHour > 23 ) {
 			System.err.println("Start hour is too large setting to 23");
@@ -227,11 +298,11 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	public void setEndTime(int hour, int min, int sec) {
+	public void setEndTime(int[] end) {
 		
-		this.endHour = hour;
-		this.endMinute = min;
-		this.endSecond = sec;
+		this.endHour = end[0];
+		this.endMinute = end[1];
+		this.endSecond = end[2];
 		
 		if(endHour > 23 ) {
 			System.err.println("End hour is too large setting to 23");
