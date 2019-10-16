@@ -5,16 +5,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cs4800.calendar.Calendar;
-import cs4800.event.Event;
-import cs4800.user.User;
 import com.google.gson.Gson;
 import java.util.List;
 import java.time.DayOfWeek;
 
 @RestController
 public class WebController {
-
-	
 
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	String healthCheck() {
