@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * Time will be saved in a 24 hour format
  */
 
-@Document
+@Document (collection = "test")
 public class Event implements EventInterface {
 
 	@Id
@@ -58,6 +58,7 @@ public class Event implements EventInterface {
 	private int startSecond = 0;
 	
 	//Start time as a string for easier output
+	@Field(value = "start_time")
 	private String startTime = null;
 	
 	//End time split into its components for easier manipulation
@@ -101,7 +102,7 @@ public class Event implements EventInterface {
 		this.compileEndDate();
 	}
 	
-	public Event(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime) {
+	public Event(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, String location) {
 		
 		this.name = name;
 		
@@ -128,9 +129,11 @@ public class Event implements EventInterface {
 		this.compileEndDate();
 		this.compileStartTime();
 		this.compileEndTime();
+		
+		this.location = location;
 	}
 	
-	public Event(String name, LocalDate startDate, LocalDate endDate, int[] startTime, int[] endTime) {
+	public Event(String name, LocalDate startDate, LocalDate endDate, int[] startTime, int[] endTime, String location) {
 		
 		this.name = name;
 		
@@ -154,6 +157,8 @@ public class Event implements EventInterface {
 		this.compileEndDate();
 		this.compileStartTime();
 		this.compileEndTime();
+		
+		this.location = location;
 	}
 	
 	@Override

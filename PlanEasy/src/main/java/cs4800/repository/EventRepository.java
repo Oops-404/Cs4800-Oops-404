@@ -8,13 +8,17 @@ import cs4800.event.Event;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @Repository
 public interface EventRepository extends MongoRepository<Event, String> {
-	
+		
 	Event findBy_id(ObjectId _id);
 	
 	List<Event> findByEventNameLike(String name);
 	
 	List<Event> findByLocationLike(String location);
-	
+
+	Event updateEvent(ObjectId _id, @Valid Event event);
+
 }

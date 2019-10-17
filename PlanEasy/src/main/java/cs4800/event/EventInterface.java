@@ -1,7 +1,6 @@
 package cs4800.event;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 import org.bson.types.ObjectId;
 
@@ -43,12 +42,16 @@ public interface EventInterface {
 	public void deleteEvent();
 	
 	/*
+	 * Set location of an event
 	 * 
+	 * @param event location
 	 */
 	public void setLocation(String location);
 	
 	/*
+	 * Get location of an event
 	 * 
+	 * @return event location
 	 */
 	public String getLocation();
 	
