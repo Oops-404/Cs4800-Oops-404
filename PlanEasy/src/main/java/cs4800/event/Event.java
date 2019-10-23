@@ -3,6 +3,8 @@ package cs4800.event;
 import java.time.LocalDate;
 import java.time.Month;
 
+import javax.persistence.Entity;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * Time will be saved in a 24 hour format
  */
 
+@Entity
 @Document (collection = "test")
 public class Event implements EventInterface {
 

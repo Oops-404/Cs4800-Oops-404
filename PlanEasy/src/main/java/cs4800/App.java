@@ -5,11 +5,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"cs4800"})
+@ComponentScan(basePackages = {"cs4800.repository"})
+@EnableMongoRepositories(basePackages = {"cs4800.repository"})
 @SpringBootApplication
+
 public class App {
 
     /**
@@ -32,3 +35,4 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 }
+

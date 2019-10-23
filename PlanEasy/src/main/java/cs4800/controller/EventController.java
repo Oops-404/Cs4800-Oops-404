@@ -21,13 +21,13 @@ import cs4800.event.Event;
 import cs4800.service.EventService;
 
 @RestController
-@RequestMapping("events")
+@RequestMapping("/events")
 public class EventController {
 	
 	private static final Logger log = Logger.getLogger(EventController.class.getName());
 
 	@Autowired
-	private EventService eventService;
+	private EventService service;
 	
 	/*
 	 * GET / RETRIEVE 
@@ -38,14 +38,14 @@ public class EventController {
 	@ResponseBody
 	public List<Event> getAllEvents() {
 		log.info("Getting all events");
-		return eventService.getAllEvents();
+		return service.getAllEvents();
 	}
 
 	// get specific event by ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Event getEventBy_id(@PathVariable("_id") ObjectId _id) {
 		log.info("Gettings event with _id: " + _id);
-		return eventService.getEventBy_id(_id);
+		return service.findBy_id(_id);
 	}
 	
 	// get list of events by name
@@ -53,7 +53,7 @@ public class EventController {
 	@ResponseBody
 	public List<Event> getEventByNameLike(@PathVariable("name") String name) {
 		log.info("Getting events with name containing: " + name);
-		return eventService.getEventByNameLike(name);
+		return service.findByEventNameLike(name);
 	}
 	
 	// get list of events by location
@@ -61,7 +61,7 @@ public class EventController {
 	@ResponseBody
 	public List<Event> getByLocationLike(@PathVariable("location") String location) {
 		log.info("Gettings events with location containing: " + location);
-		return eventService.getByLocationLike(location);
+		return service.findByLocationLike(location);
 	}
 	
 	/*
@@ -72,7 +72,7 @@ public class EventController {
 	@RequestMapping(value = "/{_id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateEvent(@PathVariable("_id") ObjectId _id, @Valid @RequestBody Event event) {
-		if(eventService.updateEvent(_id, event) != null) {
+		if(service.update(_id, event) != null) {
 			log.info("Event info has been updated");
 		}
 		else {
@@ -104,7 +104,7 @@ public class EventController {
 	@ResponseBody
 	public void deleteEvent(@PathVariable ObjectId _id) {
 		log.info("");
-		if (eventService.deleteEvent(_id) == 1) {
+		if (service.delete(_id) == 1) {
 			log.info("Event has been deleted");
 		}
 		else {
