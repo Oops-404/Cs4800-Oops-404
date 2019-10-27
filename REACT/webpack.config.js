@@ -2,7 +2,6 @@ const path = require('path');
 const SRC_DIR = path.join(__dirname, '/react-client/src');
 const DIST_DIR = path.join(__dirname, '/react-client/dist');
 const webpack = require('webpack');
-
 module.exports = {
     entry: `${SRC_DIR}/index.js`,
     output: {
@@ -24,14 +23,21 @@ module.exports = {
                 loader: 'file-loader'
             },
             {
-                test : /\.jsx?/,
+                test: /\.(js|jsx)$/,
                 include : SRC_DIR,
+                exclude : /node_modules/,
                 loader : 'babel-loader',
                 query: {
                     presets: ['react', 'es2015']
                 }
             }
         ]
+    },
+    "presets": [["env", {"modules": true}], "react"],
+    "env": {
+        "test": {
+            "presets": [["env"], "react"]
+        }
     },
     plugins: [
         new webpack.DefinePlugin({
