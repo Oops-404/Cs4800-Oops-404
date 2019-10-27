@@ -9,7 +9,7 @@ import java.util.List;
 
 /*
  * Calendar class that can be used to create 
- * an arrayList to represent months 
+ * an arrayList to represent months of a year
  */
 public class Calendar {
 
@@ -55,15 +55,27 @@ public class Calendar {
 	 * Constructor that will take three ints 
 	 * to set the year month and day of the calendar
 	 * 
-	 * @Param Initial Year of calendar
-	 * @Param Initial Month of calendar
-	 * @Param Initial Day of calendar
+	 * @Param int Initial Year of calendar
+	 * @Param int Initial Month of calendar
+	 * @Param int Initial Day of calendar
 	 */
 	public Calendar(int year, int month, int day) {
 		
 		this.setMonths();
 		
-		LocalDate today = LocalDate.now();
+		if(month > 12 || month < 0) {
+			
+			System.err.println("Month out of bounds setting to January");
+			month = 1;
+		}
+		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
+				day < Month.of(month).length(LocalDate.of(year, month, day).isLeapYear())) {
+			
+			System.err.println("Day out of bounds setting to the first");
+			day = 1;
+		}
+		
+		LocalDate today = LocalDate.of(year, month, day);
 		
 		this.year = year;
 		this.month = month - 1;
@@ -85,13 +97,29 @@ public class Calendar {
 	}
 	
 	/*
-	 * Gets the name of a specified day in a month
+	 * Gets the day of the week of a specified day in the current 
+	 * month and year
 	 * 
-	 * @Param Day of the month 
+	 * @Param int Day of the month 
 	 * @Return DayOfWeek of a specified day in a month
 	 */
 	public DayOfWeek getDayOfWeek(int day) {
 		LocalDate dayOfWeek = LocalDate.of(year, this.getMonth(), day);
+		
+		return dayOfWeek.getDayOfWeek();
+	}
+	
+	/*
+	 * Gets the day of the week of a specified day in a specified 
+	 * month and year 
+	 * 
+	 * @Param int specidfed year
+	 * @Param Month specified month
+	 * @Param int specified day
+	 * @Return DayOfWeek of the specified date
+	 */
+	public DayOfWeek getDayOfWeek(int year, Month month, int day) {
+		LocalDate dayOfWeek = LocalDate.of(year, month, day);
 		
 		return dayOfWeek.getDayOfWeek();
 	}
@@ -113,6 +141,12 @@ public class Calendar {
 	 * @Param int from 1-12 
 	 */
 	public void setMonth(int monthNumber) {
+		
+		if(monthNumber > 12 || monthNumber < 0) {
+			
+			System.err.println("Month out of bounds setting to January");
+			monthNumber = 1;
+		}
 		
 		this.month = monthNumber - 1;
 		
@@ -185,6 +219,8 @@ public class Calendar {
 		
 		this.year = year;
 		leapYear = LocalDate.of(getYear(), getMonth(), getDay()).isLeapYear();
+		
+		this.createCalendarMonth();
 	}
 	
 	/*
@@ -193,6 +229,13 @@ public class Calendar {
 	 * @Param int day to set calendar to
 	 */
 	public void setDay(int day) {
+		
+		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
+				day < Month.of(month).length(LocalDate.of(year, month, day).isLeapYear())) {
+			
+			System.err.println("Day out of bounds setting to the first");
+			day = 1;
+		}
 		
 		this.day = day;
 	}
