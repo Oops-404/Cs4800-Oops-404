@@ -15,46 +15,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cs4800.event.Event;
-import cs4800.service.EventService;
+import cs4800.service.UserService;
+import cs4800.user.User;
 
 @RestController
-@RequestMapping("/events")
-public class EventController {
-	
-	private static final Logger log = Logger.getLogger(EventController.class.getName());
+@RequestMapping("/user")
+public class UserController {
 
+	private static final Logger log = Logger.getLogger(UserController.class.getName());
+	
 	@Autowired
-	private EventService eventService;
+	private UserService userService;
 	
 	@PostMapping("/save")
-	public Event save(@RequestBody Event event) {
+	public User save(@RequestBody User user) {
 		log.info("Saving event info...");
-		return eventService.save(event);
+		return userService.save(user);
 	}
 	
 	@PutMapping("/update")
-	public Event update(@RequestBody Event event) {
+	public User update(@RequestBody User user) {
 		log.info("Updating event info...");
-		return eventService.save(event);
+		return userService.save(user);
 	}
 	
 	@GetMapping("/all")
-	public List<Event> getAllEvent() {
+	public List<User> getAllEvent() {
 		log.info("Getting all events...");
-		return eventService.getAllEvent();
+		return userService.getAllUser();
 	}
 	
 	@GetMapping("/{eventId}")
-	public Optional<Event> getEvent(@PathVariable(name = "eventId") UUID eventId) {
-		log.info("Getting event with event ID: " + eventId);
-		return eventService.getEvent(eventId);
+	public Optional<User> getEvent(@PathVariable(name = "eventId") UUID userId) {
+		log.info("Getting event with event ID: " + userId);
+		return userService.getUser(userId);
 	}
 	
 	@DeleteMapping("/delete/{eventId}")
-	public void deleteEvent(@PathVariable(name = "eventId") UUID eventId) {
-		log.info("Deleting event with event ID: " + eventId);
-		eventService.deleteEvent(eventId);
+	public void deleteUser(@PathVariable(name = "eventId") UUID userId) {
+		log.info("Deleting event with event ID: " + userId);
+		userService.deleteUser(userId);
 	}
-	
 }

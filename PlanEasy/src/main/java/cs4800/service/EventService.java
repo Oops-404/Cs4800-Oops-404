@@ -1,29 +1,21 @@
 package cs4800.service;
 
-import org.bson.types.ObjectId;
-
 import cs4800.event.Event;
 
-import java.time.LocalDate;
 import java.util.List;
-
-import javax.validation.Valid;
-
+import java.util.Optional;
+import java.util.UUID;
 
 public interface EventService {
-		
-	List<Event> getAllEvents();
 	
-	Event findBy_id(ObjectId _id);
+	Event save(Event event);
 	
-	List<Event> findByEventNameLike(String name);
+	Event update(Event event);
 	
-	List<Event> findByLocationLike(String location);
-	    
-    Event update(ObjectId _id, @Valid Event event);
-    
-    Event add(String name, LocalDate startDate, LocalDate endDate, int[] startTime, int[] endTime, String location);
-
-	int delete(ObjectId _id);
+	List<Event> getAllEvent();
+	
+	void deleteEvent(UUID eventId);
+	
+	Optional<Event> getEvent(UUID eventId);
 
 }

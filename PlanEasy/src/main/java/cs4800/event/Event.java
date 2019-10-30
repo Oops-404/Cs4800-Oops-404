@@ -2,84 +2,78 @@ package cs4800.event;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-/*
- * This is an implementation of {@link EventInterface} 
- * Event class that will hold all of the
- * information of an event
- * 
- * Time will be saved in a 24 hour format
- */
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
-@Document (collection = "test")
-public class Event implements EventInterface {
+@Getter
+@Setter
+@Document(collection = "event")
+public class Event {
 
 	@Id
-	private ObjectId _id; // primary key
+	@Field(value = "eventId")
+	private UUID eventId; // primary key
+
+	//Name of the event
+	@Field(value = "name")
+	private String name = null;
 	
 	//Start date split into its components for easier manipulation
-	@Field(value = "start_day")
+	@Field(value = "startDay")
 	private int startDay = 1;
-	@Field(value = "start_month")
+	@Field(value = "startMonth")
 	private Month startMonth = Month.JANUARY;
-	@Field(value = "start_year")
+	@Field(value = "startYear")
 	private int startYear = 2019;
 	
 	@Field(value = "location")
 	private String location = null;
 	
 	// Start date as a string for easier output
-	@Field(value = "start_date")
+	@Field(value = "startDate")
 	private String startDate = null;
 	
 	//End date split into its components for easier manipulation
-	@Field(value = "end_day")
+	@Field(value = "endDay")
 	private int endDay = 1;
-	@Field(value = "end_month")
+	@Field(value = "endMonth")
 	private Month endMonth = Month.JANUARY;
-	@Field(value = "end_year")
+	@Field(value = "endYear")
 	private int endYear = 2019;
 	
 	//End date as a string for easier output
-	@Field(value = "end_date")
+	@Field(value = "endDate")
 	private String endDate = null;
 	
 	//Start time split into its components for easier manipulation
-	@Field(value = "start_hour")
+	@Field(value = "startHour")
 	private int startHour = 0;
-	@Field(value = "start_minute")
+	@Field(value = "startMinute")
 	private int startMinute = 0;
-	@Field(value = "start_second")
+	@Field(value = "startSecond")
 	private int startSecond = 0;
 	
 	//Start time as a string for easier output
-	@Field(value = "start_time")
+	@Field(value = "startTime")
 	private String startTime = null;
 	
 	//End time split into its components for easier manipulation
-	@Field(value = "end_hour")
+	@Field(value = "endHour")
 	private int endHour = 0;
-	@Field(value = "end_minute")
+	@Field(value = "endMinute")
 	private int endMinute = 0;
-	@Field(value = "end_second")
+	@Field(value = "endSecond")
 	private int endSecond = 0;
 	
 	//End time as a string for easier output
-	@Field(value = "end_time")
+	@Field(value = "endTime")
 	private String endTime = null;
-	
-	//Name of the event
-	@Field(value = "name")
-	private String name = null;
-	
 	
 	/*
 	 * Constructor so that each new event must have a name
@@ -164,39 +158,33 @@ public class Event implements EventInterface {
 		this.location = location;
 	}
 	
-	@Override
-	public ObjectId get_id() {
+	public UUID geteventId() {
 		
-		return _id;
-		
-	}
-	
-	@Override
-	public void set_id(ObjectId _id) {
-		
-		this._id = _id;
+		return eventId;
 		
 	}
 	
-	@Override
+	public void seteventId(UUID eventId) {
+		
+		this.eventId = eventId;
+		
+	}
+	
 	public String getName() {
 		
 		return name;
 	}
 
-	@Override
 	public void setName(String name) {
 		
 		this.name = name;
 	}
 
-	@Override
 	public void deleteEvent() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public LocalDate getStartDate() {
 
 		LocalDate date = LocalDate.of(startYear, startMonth, startDay);
@@ -204,7 +192,6 @@ public class Event implements EventInterface {
 		return date;
 	}
 
-	@Override
 	public LocalDate getEndDate() {
 
 		LocalDate date = LocalDate.of(endDay, endMonth, endYear);
@@ -212,7 +199,6 @@ public class Event implements EventInterface {
 		return date;
 	}
 	
-	@Override
 	public int[] getStartTime() {
 		
 		int[] time = {startHour, startMinute, startSecond};
@@ -220,8 +206,6 @@ public class Event implements EventInterface {
 		return time;
 	}
 
-
-	@Override
 	public int[] getEndTime() {
 
 		int[] time = {endHour, endMinute, endSecond};
@@ -229,7 +213,6 @@ public class Event implements EventInterface {
 		return time;
 	}
 
-	@Override
 	public void setStartDate(LocalDate start) {
 		
 		this.startDay = start.getDayOfMonth();
@@ -249,7 +232,6 @@ public class Event implements EventInterface {
 		
 	}
 	
-	@Override
 	public void setEndDate(LocalDate end) {
 		
 		this.endDay = end.getDayOfMonth();
@@ -268,7 +250,6 @@ public class Event implements EventInterface {
 		this.endDate = this.compileEndDate();
 	}
 
-	@Override
 	public void setStartTime(int start[]) {
 		
 		this.startHour = start[0];
@@ -305,7 +286,6 @@ public class Event implements EventInterface {
 		this.startTime = this.compileStartTime();
 	}
 
-	@Override
 	public void setEndTime(int[] end) {
 		
 		this.endHour = end[0];
@@ -341,8 +321,6 @@ public class Event implements EventInterface {
 		
 		this.endTime = this.compileEndTime();
 	}
-	
-	
 	
 	@Override
 	public String toString() {
@@ -404,7 +382,6 @@ public class Event implements EventInterface {
 	 * @return event location
 	 */
 	public String getLocation() {
-		// TODO Auto-generated method stub
 		return location;
 	}
 	
@@ -417,5 +394,4 @@ public class Event implements EventInterface {
 		this.location = location;
 	}
 	
-
 }

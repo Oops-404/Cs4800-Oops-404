@@ -1,8 +1,7 @@
 package cs4800.event;
 
 import java.time.LocalDate;
-
-import org.bson.types.ObjectId;
+import java.util.UUID;
 
 public interface EventInterface {
 	
@@ -11,14 +10,14 @@ public interface EventInterface {
 	 * 
 	 * @param id of event
 	 */
-	void set_id(ObjectId _id);
+	void setEventId(UUID EventId);
 	
 	/*
 	 * Get unique event id
 	 * 
 	 * @return id of event
 	 */
-	ObjectId get_id();
+	UUID getEventId();
 	
 	/*
 	 * Get the name of the event
