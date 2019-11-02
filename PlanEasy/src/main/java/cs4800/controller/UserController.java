@@ -1,6 +1,5 @@
 package cs4800.controller;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -27,11 +26,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/*
+	 * POST
+	 */
+	
 	@PostMapping("/save")
 	public User save(@RequestBody User user) {
 		log.info("Saving event info...");
 		return userService.save(user);
 	}
+	
+	/*
+	 * PUT
+	 */
 	
 	@PutMapping("/update")
 	public User update(@RequestBody User user) {
@@ -39,21 +46,23 @@ public class UserController {
 		return userService.save(user);
 	}
 	
-	@GetMapping("/all")
-	public List<User> getAllEvent() {
-		log.info("Getting all events...");
-		return userService.getAllUser();
-	}
-	
-	@GetMapping("/{eventId}")
-	public Optional<User> getEvent(@PathVariable(name = "eventId") UUID userId) {
-		log.info("Getting event with event ID: " + userId);
+	/*
+	 * GET
+	 */
+		
+	@GetMapping("/{userId}")
+	public Optional<User> getEvent(@PathVariable(name = "userId") UUID userId) {
+		log.info("Getting event with user ID: " + userId);
 		return userService.getUser(userId);
 	}
 	
-	@DeleteMapping("/delete/{eventId}")
-	public void deleteUser(@PathVariable(name = "eventId") UUID userId) {
-		log.info("Deleting event with event ID: " + userId);
+	/*
+	 * DELETE
+	 */
+	
+	@DeleteMapping("/delete/{userId}")
+	public void deleteUser(@PathVariable(name = "userId") UUID userId) {
+		log.info("Deleting event with user ID: " + userId);
 		userService.deleteUser(userId);
 	}
 }

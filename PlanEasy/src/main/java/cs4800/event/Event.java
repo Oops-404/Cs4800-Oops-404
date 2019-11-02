@@ -1,7 +1,10 @@
 package cs4800.event;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -11,10 +14,15 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+ * This is an implementation of {@link EventInterface}
+ * Event class that will hold all of the
+ * information of an event
+ */
 @Getter
 @Setter
-@Document(collection = "event")
-public class Event {
+@Document(collection = "test")
+public class Event implements EventInterface {
 
 	@Id
 	@Field(value = "eventId")
@@ -56,8 +64,6 @@ public class Event {
 	private int startHour = 0;
 	@Field(value = "startMinute")
 	private int startMinute = 0;
-	@Field(value = "startSecond")
-	private int startSecond = 0;
 	
 	//Start time as a string for easier output
 	@Field(value = "startTime")
@@ -68,123 +74,219 @@ public class Event {
 	private int endHour = 0;
 	@Field(value = "endMinute")
 	private int endMinute = 0;
-	@Field(value = "endSecond")
-	private int endSecond = 0;
 	
 	//End time as a string for easier output
 	@Field(value = "endTime")
 	private String endTime = null;
 	
-	/*
-	 * Constructor so that each new event must have a name
+	@Field(value = "category")
+	private String category = null;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
 	 */
 	public Event(String name) {
-		
 		this.name = name;
 	}
-	
-	public Event(String name, LocalDate startDate, LocalDate endDate) {
-		
-		this.name = name;
-		
-		this.startYear = startDate.getYear();
-		this.startMonth = startDate.getMonth();
-		this.startDay = startDate.getDayOfMonth();
-		
-		this.endYear = endDate.getYear();
-		this.endMonth = endDate.getMonth();
-		this.endDay = startDate.getDayOfMonth();
-		
-		this.compileStartDate();
-		this.compileEndDate();
-	}
-	
-	public Event(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, String location) {
-		
-		this.name = name;
-		
-		this.startYear = startDate.getYear();
-		this.startMonth = startDate.getMonth();
-		this.startDay = startDate.getDayOfMonth();
-		
-		this.endYear = endDate.getYear();
-		this.endMonth = endDate.getMonth();
-		this.endDay = startDate.getDayOfMonth();
-		
-		String start[] = startTime.split(":");
-		String end[] = endTime.split(":");
-		
-		this.startHour = Integer.parseInt(start[0]);
-		this.startMinute = Integer.parseInt(start[1]);
-		this.startSecond = Integer.parseInt(start[2]);
-		
-		this.endHour = Integer.parseInt(end[0]);
-		this.endMinute = Integer.parseInt(end[1]);
-		this.endSecond = Integer.parseInt(end[2]);
-		
-		this.compileStartDate();
-		this.compileEndDate();
-		this.compileStartTime();
-		this.compileEndTime();
-		
-		this.location = location;
-	}
-	
-	public Event(String name, LocalDate startDate, LocalDate endDate, int[] startTime, int[] endTime, String location) {
-		
-		this.name = name;
-		
-		this.startYear = startDate.getYear();
-		this.startMonth = startDate.getMonth();
-		this.startDay = startDate.getDayOfMonth();
-		
-		this.endYear = endDate.getYear();
-		this.endMonth = endDate.getMonth();
-		this.endDay = startDate.getDayOfMonth();
 
-		this.startHour = startTime[0];
-		this.startMinute = startTime[1];
-		this.startSecond = startTime[2];
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param category - category of the event
+	 */
+	public Event(String name, String category) {
+		this.name = name;
+		this.category = category;
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. 5/19/2019)
+	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param location - location of event
+	 */
+	public Event(String name, String startDate, String endDate, String location) {
 		
-		this.endHour = endTime[0];
-		this.endMinute = endTime[1];
-		this.endSecond = endTime[2];
+		this.name = name;
+		this.eventId = UUID.randomUUID();
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
 		
 		this.compileStartDate();
 		this.compileEndDate();
-		this.compileStartTime();
-		this.compileEndTime();
 		
 		this.location = location;
 	}
 	
-	public UUID geteventId() {
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. 5/19/2019)
+	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param location - location of event
+	 * @param category - category of the event
+	 */
+	public Event(String name, String startDate, String endDate, String location, String category) {
+		
+		this.name = name;
+		this.eventId = UUID.randomUUID();
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
+		
+		this.compileStartDate();
+		this.compileEndDate();
+		
+		this.location = location;
+		
+		this.category = category;
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. 5/19/2019)
+	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startTime - start time of event (i.e. 5:00 PM)
+	 * @param endTime - end time of event (i.e. 10:30 AM)
+	 * @param location - location of event
+	 */
+	public Event(String name, String startDate, String endDate, String startTime, String endTime, String location) {
+		
+		this.name = name;
+		this.eventId = UUID.randomUUID();
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
+		
+		DateTimeFormatter formatTime = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
+		LocalTime localEndtime = LocalTime.parse(endTime, formatTime);
+		
+		this.startHour = localStartTime.getHour();
+		this.startMinute = localStartTime.getMinute();
+		
+		this.endHour = localEndtime.getHour();
+		this.endMinute = localEndtime.getMinute();
+		
+		this.compileStartDate();
+		this.compileEndDate();
+//		this.compileStartTime();
+//		this.compileEndTime();
+		
+		this.location = location;
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. 5/19/2019)
+	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startTime - start time of event (i.e. 5:00 PM)
+	 * @param endTime - end time of event (i.e. 10:30 AM)
+	 * @param location - location of event
+	 * @param category - category of the event
+	 */
+	public Event(String name, String startDate, String endDate, String startTime, String endTime, String location, String category) {
+		
+		this.name = name;
+		this.eventId = UUID.randomUUID();
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
+		
+		DateTimeFormatter formatTime = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
+		LocalTime localEndtime = LocalTime.parse(endTime, formatTime);
+		
+		this.startHour = localStartTime.getHour();
+		this.startMinute = localStartTime.getMinute();
+		
+		this.endHour = localEndtime.getHour();
+		this.endMinute = localEndtime.getMinute();
+		
+		this.compileStartDate();
+		this.compileEndDate();
+//		this.compileStartTime();
+//		this.compileEndTime();
+		
+		this.location = location;
+		
+		this.category = category;
+	}
+			
+	@Override
+	public UUID getEventId() {
 		
 		return eventId;
 		
 	}
 	
-	public void seteventId(UUID eventId) {
+	@Override
+	public void setEventId(UUID eventId) {
 		
 		this.eventId = eventId;
 		
 	}
 	
+	@Override
 	public String getName() {
 		
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		
 		this.name = name;
 	}
 
-	public void deleteEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	@Override
 	public LocalDate getStartDate() {
 
 		LocalDate date = LocalDate.of(startYear, startMonth, startDay);
@@ -192,6 +294,7 @@ public class Event {
 		return date;
 	}
 
+	@Override
 	public LocalDate getEndDate() {
 
 		LocalDate date = LocalDate.of(endDay, endMonth, endYear);
@@ -199,31 +302,38 @@ public class Event {
 		return date;
 	}
 	
+	@Override
 	public int[] getStartTime() {
 		
-		int[] time = {startHour, startMinute, startSecond};
+		int[] time = {startHour, startMinute};
 		
 		return time;
 	}
 
+	@Override
 	public int[] getEndTime() {
 
-		int[] time = {endHour, endMinute, endSecond};
+		int[] time = {endHour, endMinute};
 		
 		return time;
 	}
 
-	public void setStartDate(LocalDate start) {
+	@Override
+	public void setStartDate(String start) {
 		
-		this.startDay = start.getDayOfMonth();
-		this.startMonth = start.getMonth();
-		this.startYear = start.getYear();
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localStartDate = LocalDate.parse(start, formatDate);
 		
-		if(start.getDayOfMonth() > start.getMonth().length(start.isLeapYear())) {
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		
+		if(localStartDate.getDayOfMonth() > localStartDate.getMonth().length(localStartDate.isLeapYear())) {
 			System.err.println("Day is out of bounds setting to end of month");
-			this.startDay = start.getMonth().length(start.isLeapYear());
+			this.startDay = localStartDate.getMonth().length(localStartDate.isLeapYear());
 		}
-		else if(start.getDayOfMonth() < 0 ) {
+		else if(localStartDate.getDayOfMonth() < 0 ) {
 			System.err.println("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
@@ -232,17 +342,21 @@ public class Event {
 		
 	}
 	
-	public void setEndDate(LocalDate end) {
+	@Override
+	public void setEndDate(String end) {
 		
-		this.endDay = end.getDayOfMonth();
-		this.endMonth = end.getMonth();
-		this.endYear = end.getYear();
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localEndDate = LocalDate.parse(end, formatDate);
 		
-		if(end.getDayOfMonth() > end.getMonth().length(end.isLeapYear())) {
+		this.startYear = localEndDate.getYear();
+		this.startMonth = localEndDate.getMonth();
+		this.startDay = localEndDate.getDayOfMonth();
+		
+		if(localEndDate.getDayOfMonth() > localEndDate.getMonth().length(localEndDate.isLeapYear())) {
 			System.err.println("Day is out of bounds setting to end of month");
-			this.startDay = end.getMonth().length(end.isLeapYear());
+			this.startDay = localEndDate.getMonth().length(localEndDate.isLeapYear());
 		}
-		else if(end.getDayOfMonth() < 0 ) {
+		else if(localEndDate.getDayOfMonth() < 0 ) {
 			System.err.println("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
@@ -250,11 +364,11 @@ public class Event {
 		this.endDate = this.compileEndDate();
 	}
 
+	@Override
 	public void setStartTime(int start[]) {
 		
 		this.startHour = start[0];
 		this.startMinute = start[1];
-		this.startSecond = start[2];
 		
 		if(startHour > 23 ) {
 			System.err.println("Start hour is too large setting to 23");
@@ -274,23 +388,14 @@ public class Event {
 			this.startMinute = 0;
 		}
 		
-		if(startSecond > 59) {
-			System.err.println("Start second is too large setting to 59");
-			this.startSecond = 59;
-		}
-		else if(startSecond < 0) {
-			System.err.println("Start second is too small setting to 0");
-			this.startSecond = 0;
-		}
-		
-		this.startTime = this.compileStartTime();
+//		this.startTime = this.compileStartTime();
 	}
 
+	@Override
 	public void setEndTime(int[] end) {
 		
 		this.endHour = end[0];
 		this.endMinute = end[1];
-		this.endSecond = end[2];
 		
 		if(endHour > 23 ) {
 			System.err.println("End hour is too large setting to 23");
@@ -310,16 +415,7 @@ public class Event {
 			this.endMinute = 0;
 		}
 		
-		if(endSecond > 59) {
-			System.err.println("End second is too large setting to 59");
-			this.endSecond = 59;
-		}
-		else if(endSecond < 0) {
-			System.err.println("End second is too small setting to 0");
-			this.endSecond = 0;
-		}
-		
-		this.endTime = this.compileEndTime();
+//		this.endTime = this.compileEndTime();
 	}
 	
 	@Override
@@ -341,6 +437,27 @@ public class Event {
 		
 		return startDate;
 	}
+
+	@Override
+	public String getLocation() {
+		return location;
+	}
+	
+	@Override
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	@Override
+	public String getCategory() {
+		return category;
+	}
+	
+	@Override
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	
 	/*
 	 * Puts each component of the end date into a string
@@ -354,44 +471,26 @@ public class Event {
 		return endDate;
 	}
 	
-	/*
-	 * Puts each component of the start time into a string
-	 * 
-	 * @return start time as a string
-	 */
-	private String compileStartTime() {
-		String startTime = (this.startHour + ":" + this.startMinute + ":" + this.startSecond);
-		
-		return startTime;
-	}
-	
-	/*
-	 * Puts each component of the end time into a string
-	 * 
-	 * @return end time as a string
-	 */
-	private String compileEndTime() {
-		String startTime = (this.endHour + ":" + this.endMinute + ":" + this.endSecond);
-		
-		return startTime;
-	}
-
-	/*
-	 * Get location of event
-	 * 
-	 * @return event location
-	 */
-	public String getLocation() {
-		return location;
-	}
-	
-	/*
-	 * Set location of event
-	 * 
-	 * @param event location
-	 */
-	public void setLocation(String location) {
-		this.location = location;
-	}
+//	/*
+//	 * Puts each component of the start time into a string
+//	 * 
+//	 * @return start time as a string
+//	 */
+//	private String compileStartTime() {
+//		String startTime = (this.startHour + ":" + this.startMinute + ":" + this.startSecond);
+//		
+//		return startTime;
+//	}
+//	
+//	/*
+//	 * Puts each component of the end time into a string
+//	 * 
+//	 * @return end time as a string
+//	 */
+//	private String compileEndTime() {
+//		String startTime = (this.endHour + ":" + this.endMinute + ":" + this.endSecond);
+//		
+//		return startTime;
+//	}
 	
 }

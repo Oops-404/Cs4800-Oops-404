@@ -6,17 +6,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /*
  * This is an implementation of {@link UserInterface}
  * User class that will hold all of the
  * information of a user
  */
+@Getter
+@Setter
 @Document (collection = "user")
 public class User implements UserInterface {
 
     // ID of the user
     @Id
-    @Field(value = "id")
+    @Field(value = "userId")
     private UUID userId = null;
     
     // Name of the user

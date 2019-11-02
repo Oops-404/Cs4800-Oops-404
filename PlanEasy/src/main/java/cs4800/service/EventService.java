@@ -2,6 +2,8 @@ package cs4800.service;
 
 import cs4800.event.Event;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,4 +20,19 @@ public interface EventService {
 	
 	Optional<Event> getEvent(UUID eventId);
 
+	/*
+	 * Custom Queries
+	 */
+	
+	List<Event> getEventsByName(String name);
+	
+	List<Event> getEventsByLocation(String location);
+	
+	List<Event> getEventsByStartDate(LocalDate startDate);
+	
+	List<Event> getEventsByStartTime(LocalTime localStartTime);
+	
+	List<Event> getEventsByCategory(String category);
+	
+	List<Event> getEventByEndDate();
 }
