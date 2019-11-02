@@ -69,7 +69,7 @@ public class EventController {
 	 * RETRIEVE SINGLE EVENT
 	 */
 	
-	@GetMapping("/{eventId}")
+	@GetMapping("/id/{eventId}")
 	public Optional<Event> getEvent(@PathVariable(name = "eventId") UUID eventId) {
 		log.info("Getting event with event ID: " + eventId);
 		return eventService.getEvent(eventId);
@@ -79,7 +79,7 @@ public class EventController {
 	 * GET ALL EVENTS CONTAINING __ IN THE NAME
 	 */
 	
-	@GetMapping("/{name}")
+	@GetMapping("/name/{name}")
 	public List<Event> getEventByName(@PathVariable(name = "name") String name) {
 		log.info("Getting event with event name containing: " + name);
 		return eventService.getEventsByName(name);
@@ -88,7 +88,7 @@ public class EventController {
 	 * GET ALL EVENTS CONTAINING __ IN THE LOCATION
 	 */
 	
-	@GetMapping("/{location}")
+	@GetMapping("/location/{location}")
 	public List<Event> getEventByLocation(@PathVariable(name = "location") String location) {
 		log.info("Getting event with event location containing: " + location);
 		return eventService.getEventsByLocation(location);
@@ -99,7 +99,7 @@ public class EventController {
 	 */
 	
 	
-	@GetMapping("/{startDate}")
+	@GetMapping("/startDate/{startDate}")
 	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") String startDate) {
 		log.info("Getting event with event start date: " + startDate);
 		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
@@ -111,7 +111,7 @@ public class EventController {
 	 * GET ALL EVENTS STARTING AT THIS TIME
 	 */
 	
-	@GetMapping("/{startTime}")
+	@GetMapping("/startTime/{startTime}")
 	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") String startTime) {
 		log.info("Getting event with event start time: " + startTime);
 		DateTimeFormatter formatTime = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
@@ -152,4 +152,5 @@ public class EventController {
 			eventService.deleteEvent(id);
 		}
 	}
+
 }
