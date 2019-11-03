@@ -9,9 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import cs4800.dao.EventDAO;
+import cs4800.dao.UserDAO;
 import cs4800.event.Event;
+import cs4800.user.User;
 
 @EnableMongoRepositories({"cs4800.dao"})
 @SpringBootApplication
@@ -21,6 +24,11 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 
 	@Autowired
 	private EventDAO eventDAO;
+	
+	@Autowired
+	private UserDAO userDAO;
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
     /**
      * This is the running main method for the web application.
@@ -46,6 +54,9 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("---TESTING---");
+//		userDAO.deleteAll();
+//		userDAO.save(new User("test", bCryptPasswordEncoder.encode("pass")));
+		
 //		eventDAO.save(new Event("Pumpkin Patch", "10/5/2019", "10/31/2019", "Cal Poly Pomona", "Halloween"));
 //		eventDAO.save(new Event("Pumpkin Carving", "10/31/2019", "10/31/2019", "5:00 PM", "8:00 PM", "Cal Poly Pomona", "Halloween"));
 //		eventDAO.save(new Event("Self-Care Happy Hour", "11/5/2019", "11/5/2019", "2:00 PM", "4:00 PM", "Cal Poly Pomona"));

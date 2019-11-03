@@ -17,12 +17,7 @@ public class WebController {
 	
 		return "OK";
 	}
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	String homePage(){
-		return "This is the home page";
-	}
 	
-
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	List<DayOfWeek> eventTest() {
 		Calendar cal = new Calendar();
@@ -37,5 +32,15 @@ public class WebController {
 		Gson gson = new Gson();
 		
 		return gson.toJson(strings);
+	}
+	
+	@RequestMapping(value = "/usertest", method = RequestMethod.GET)
+	String testUser() {
+		return "Welcome User";
+	}
+	
+	@RequestMapping(value = "/admintest", method = RequestMethod.GET)
+	String testAdmin() {
+		return "Welcome Admin";
 	}
 }

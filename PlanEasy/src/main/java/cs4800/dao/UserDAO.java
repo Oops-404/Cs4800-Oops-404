@@ -13,5 +13,7 @@ import cs4800.user.User;
  */
 @Repository
 public interface UserDAO extends MongoRepository<User, UUID> {
+	
+	User findByName(String name);
 
 }

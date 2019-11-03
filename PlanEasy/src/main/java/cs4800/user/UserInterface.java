@@ -1,6 +1,9 @@
 package cs4800.user;
 
+import java.util.Set;
 import java.util.UUID;
+
+import cs4800.security.Role;
 
 public interface UserInterface {
     /*
@@ -30,4 +33,16 @@ public interface UserInterface {
      * @param ID of user
      */
     public void setUserId(UUID userId);
+    
+    public String getPassword();
+    
+    public void setPassword(String password);
+    
+    public boolean isEnabled();
+    
+    public void setEnabled(boolean enabled);
+    
+    public void setRoles(Set<Role> roles);
+    
+    public Set<Role> getRoles();
 }
