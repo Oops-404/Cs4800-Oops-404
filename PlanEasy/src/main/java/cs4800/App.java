@@ -30,10 +30,16 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	    return args -> {
 
 	        Role adminRole = roleRepository.findByRole("ADMIN");
+	        Role userRole = roleRepository.findByRole("USER");
 	        if (adminRole == null) {
 	            Role newAdminRole = new Role();
 	            newAdminRole.setRole("ADMIN");
 	            roleRepository.save(newAdminRole);
+	        }
+	        if(userRole == null) {
+	        	Role newUserRole = new Role();
+	        	newUserRole.setRole("USER");
+	        	roleRepository.save(newUserRole);
 	        }
 	    };
 

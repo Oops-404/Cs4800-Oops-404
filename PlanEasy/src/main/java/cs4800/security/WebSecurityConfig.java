@@ -66,7 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 	            .antMatchers("/auth/login").permitAll()
 	            .antMatchers("/auth/register").permitAll()
-	            .antMatchers("/products/**").hasAuthority("ADMIN").anyRequest().authenticated().and().csrf()
+	            .antMatchers("/admintest").hasAuthority("ADMIN").anyRequest().authenticated()
+	            .antMatchers("/usertest").hasAuthority("USER").anyRequest().authenticated()
+	            .and().csrf()
 	            .disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
 	            .apply(new JwtConfigurer(jwtTokenProvider));
 	}

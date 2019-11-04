@@ -37,12 +37,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	/*
-	 * Saves a new user with the role of ADMIN 
+	 * Saves a new user with the role of USER 
 	 */
 	public void saveUser(User user) {
 	    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 	    user.setEnabled(true);
-	    Role userRole = roleRepository.findByRole("ADMIN");
+	    Role userRole = roleRepository.findByRole("USER");
 	    user.setRoles(new HashSet<>(Arrays.asList(userRole)));
 	    userRepository.save(user);
 	}
