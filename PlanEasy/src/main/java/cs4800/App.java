@@ -8,25 +8,41 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import cs4800.dao.EventDAO;
+import cs4800.dao.RoleDAO;
 import cs4800.dao.UserDAO;
 import cs4800.event.Event;
+import cs4800.security.CustomUserDetailsService;
+import cs4800.security.Role;
 import cs4800.user.User;
 
 @EnableMongoRepositories({"cs4800.dao"})
 @SpringBootApplication
 public class App extends SpringBootServletInitializer implements CommandLineRunner {
+	
+	@Bean
+	CommandLineRunner init(RoleDAO roleRepository) {
+
+	    return args -> {
+
+	        Role adminRole = roleRepository.findByRole("ADMIN");
+	        if (adminRole == null) {
+	            Role newAdminRole = new Role();
+	            newAdminRole.setRole("ADMIN");
+	            roleRepository.save(newAdminRole);
+	        }
+	    };
+
+	}
 
 	private static final Logger log = Logger.getLogger(App.class.getName());
 
 	@Autowired
 	private EventDAO eventDAO;
-	
-	@Autowired
-	private UserDAO userDAO;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
@@ -54,7 +70,7 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("---TESTING---");
-//		userDAO.deleteAll();
+
 //		userDAO.save(new User("test", bCryptPasswordEncoder.encode("pass")));
 		
 //		eventDAO.save(new Event("Pumpkin Patch", "10/5/2019", "10/31/2019", "Cal Poly Pomona", "Halloween"));

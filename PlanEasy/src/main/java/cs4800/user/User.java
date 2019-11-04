@@ -1,5 +1,6 @@
 package cs4800.user;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,6 +35,10 @@ public class User implements UserInterface {
 	// Users encrypted password
 	@Field(value = "password")
 	private String password = null;
+	
+	// Users email
+	@Field(value = "email")
+	private String email;
 
 	// If the account is active
 	@Field(value = "enabled")
@@ -41,8 +46,7 @@ public class User implements UserInterface {
 	
 	@DBRef
 	private Set<Role> roles;
-	
-	private String rolles = "USER";
+
 	
     /*
      * Constructor so that each new user must have a name and
@@ -112,10 +116,15 @@ public class User implements UserInterface {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
-	public String getRolles() {
-		return this.rolles;
+
+	@Override
+	public String getEmail() {
+		return email;
 	}
-	
+
+	@Override
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }

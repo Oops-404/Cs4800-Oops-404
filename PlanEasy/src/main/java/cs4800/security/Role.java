@@ -15,6 +15,11 @@ public class Role {
 	//Name of the security role
 	@Field(value = "role")
 	private String role;
+	
+	public Role() {
+		this.role = "USER";
+		this.roleId = "1";
+	}
 
 	public String getRoleId() {
 		return roleId;

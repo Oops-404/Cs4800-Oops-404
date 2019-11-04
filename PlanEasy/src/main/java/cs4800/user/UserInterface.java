@@ -45,4 +45,8 @@ public interface UserInterface {
     public void setRoles(Set<Role> roles);
     
     public Set<Role> getRoles();
+    
+    public void setEmail(String email);
+    
+    public String getEmail();
 }

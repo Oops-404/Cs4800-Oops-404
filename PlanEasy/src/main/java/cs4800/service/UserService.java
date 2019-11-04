@@ -14,8 +14,8 @@ public interface UserService {
 	
 	List<User> getAllUser();
 	
-	void deleteUser(UUID userId);
+	void deleteUser(String email);
 	
-	Optional<User> getUser(UUID userId);
+	Optional<User> getUser(String email);
 	
 }

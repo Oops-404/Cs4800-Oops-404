@@ -50,19 +50,19 @@ public class UserController {
 	 * GET
 	 */
 		
-	@GetMapping("/{userId}")
-	public Optional<User> getEvent(@PathVariable(name = "userId") UUID userId) {
-		log.info("Getting event with user ID: " + userId);
-		return userService.getUser(userId);
+	@GetMapping("/{userEmail}")
+	public Optional<User> getEvent(@PathVariable(name = "userEmail") String email) {
+		log.info("Getting event with user ID: " + email);
+		return userService.getUser(email);
 	}
 	
 	/*
 	 * DELETE
 	 */
 	
-	@DeleteMapping("/delete/{userId}")
-	public void deleteUser(@PathVariable(name = "userId") UUID userId) {
-		log.info("Deleting event with user ID: " + userId);
-		userService.deleteUser(userId);
+	@DeleteMapping("/delete/{userEmail}")
+	public void deleteUser(@PathVariable(name = "userEmail") String email) {
+		log.info("Deleting event with user ID: " + email);
+		userService.deleteUser(email);
 	}
 }

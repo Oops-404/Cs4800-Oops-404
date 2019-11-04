@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(UUID userId) {
-		userDAO.deleteById(userId);
+	public void deleteUser(String email) {
+		userDAO.deleteById(email);
 	}
 
 	@Override
-	public Optional<User> getUser(UUID userId) {
-		return userDAO.findById(userId);
+	public Optional<User> getUser(String email) {
+		return userDAO.findById(email);
 	}
 }
