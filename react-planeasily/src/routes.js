@@ -35,6 +35,8 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import EventList from "views/EventList/EventList";
+import Calendar from "views/Calendar/Calendar";
 
 const dashboardRoutes = [
   {
@@ -51,6 +53,22 @@ const dashboardRoutes = [
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/event",
+    name: "Event List",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: EventList,
+    layout: "/admin"
+  },
+  {
+    path: "/calendar",
+    name: "Calendar",
+    rtlName: "قائمة الجدول",
+    icon: "calendar_today",
+    component: Calendar,
     layout: "/admin"
   },
   {
@@ -93,22 +111,22 @@ const dashboardRoutes = [
     component: NotificationsPage,
     layout: "/admin"
   },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
-    layout: "/admin"
-  }
+  // {
+  //   path: "/rtl-page",
+  //   name: "RTL Support",
+  //   rtlName: "پشتیبانی از راست به چپ",
+  //   icon: Language,
+  //   component: RTLPage,
+  //   layout: "/rtl"
+  // },
+  // {
+  //   path: "/upgrade-to-pro",
+  //   name: "Upgrade To PRO",
+  //   rtlName: "التطور للاحترافية",
+  //   icon: Unarchive,
+  //   component: UpgradeToPro,
+  //   layout: "/admin"
+  // }
 ];
 
 export default dashboardRoutes;
