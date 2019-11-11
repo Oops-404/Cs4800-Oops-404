@@ -1,6 +1,5 @@
 package cs4800.user;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -47,7 +46,13 @@ public class User implements UserInterface {
 	@DBRef
 	private Set<Role> roles;
 
-	
+    /**
+     * No args constructor
+     */
+    public User() {
+    	this.userId = UUID.randomUUID();
+    }
+    
     /*
      * Constructor so that each new user must have a name and
      * a randomly generated user ID
@@ -56,11 +61,7 @@ public class User implements UserInterface {
         this.name = name;
         this.userId = UUID.randomUUID();
     }
-    
-    public User() {
-    	this.userId = UUID.randomUUID();
-    }
-    
+
     public User(String name, String password) {
     	this.name = name;
     	this.password = password;
@@ -125,6 +126,16 @@ public class User implements UserInterface {
 	@Override
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	@Override
+	public String toString() {
+		return "User { "
+				+ "id=" + userId + '\'' 
+				+ ", email=" + email + '\''
+				+ ", password=" + password + '\''
+				+ " }";
+				
 	}
 	
 }

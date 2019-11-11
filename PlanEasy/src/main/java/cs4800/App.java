@@ -36,7 +36,7 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	            newAdminRole.setRole("ADMIN");
 	            roleRepository.save(newAdminRole);
 	        }
-	        if(userRole == null) {
+	        if (userRole == null) {
 	        	Role newUserRole = new Role();
 	        	newUserRole.setRole("USER");
 	        	roleRepository.save(newUserRole);
@@ -76,14 +76,6 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("---TESTING---");
-
-//		userDAO.save(new User("test", bCryptPasswordEncoder.encode("pass")));
-		
-//		eventDAO.save(new Event("Pumpkin Patch", "10/5/2019", "10/31/2019", "Cal Poly Pomona", "Halloween"));
-//		eventDAO.save(new Event("Pumpkin Carving", "10/31/2019", "10/31/2019", "5:00 PM", "8:00 PM", "Cal Poly Pomona", "Halloween"));
-//		eventDAO.save(new Event("Self-Care Happy Hour", "11/5/2019", "11/5/2019", "2:00 PM", "4:00 PM", "Cal Poly Pomona"));
-//		eventDAO.save(new Event("Console Tournaments", "11/7/2019", "11/7/2019", "6:00 PM", "8:00 PM", "Cal Poly Pomona", "fun"));
-//		eventDAO.save(new Event("Spring Career Fair", "3/5/2020", "3/5/2020", "10:30 AM", "2:30 PM", "Cal Poly Pomona", "career"));
 	}
     
 }

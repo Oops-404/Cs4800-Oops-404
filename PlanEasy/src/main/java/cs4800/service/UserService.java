@@ -2,7 +2,6 @@ package cs4800.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import cs4800.user.User;
 
@@ -12,10 +11,10 @@ public interface UserService {
 	
 	User update(User user);
 	
-	List<User> getAllUser();
+	List<User> getAllUsers();
 	
-	void deleteUser(String email);
+	void deleteUserByEmail(String email);
 	
-	Optional<User> getUser(String email);
+	Optional<User> getUserByEmail(String email);
 	
 }

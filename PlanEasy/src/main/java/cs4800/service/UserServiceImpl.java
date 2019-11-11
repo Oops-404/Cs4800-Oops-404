@@ -2,7 +2,6 @@ package cs4800.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,17 +26,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getAllUser() {
+	public List<User> getAllUsers() {
 		return userDAO.findAll();
 	}
 
 	@Override
-	public void deleteUser(String email) {
+	public void deleteUserByEmail(String email) {
 		userDAO.deleteById(email);
 	}
 
 	@Override
-	public Optional<User> getUser(String email) {
+	public Optional<User> getUserByEmail(String email) {
 		return userDAO.findById(email);
 	}
 }

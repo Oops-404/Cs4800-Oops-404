@@ -6,10 +6,13 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +27,8 @@ import lombok.Setter;
 @Document(collection = "test")
 public class Event implements EventInterface {
 
+	private static final Logger log = Logger.getLogger(Event.class.getName());
+	
 	@Id
 	@Field(value = "eventId")
 	private UUID eventId; // primary key
@@ -36,9 +41,9 @@ public class Event implements EventInterface {
 	@Field(value = "startDay")
 	private int startDay = 1;
 	@Field(value = "startMonth")
-	private Month startMonth = Month.JANUARY;
+	private Month startMonth = null;
 	@Field(value = "startYear")
-	private int startYear = 2019;
+	private int startYear = 0;
 	
 	@Field(value = "location")
 	private String location = null;
@@ -51,9 +56,9 @@ public class Event implements EventInterface {
 	@Field(value = "endDay")
 	private int endDay = 1;
 	@Field(value = "endMonth")
-	private Month endMonth = Month.JANUARY;
+	private Month endMonth = null;
 	@Field(value = "endYear")
-	private int endYear = 2019;
+	private int endYear = 0;
 	
 	//End date as a string for easier output
 	@Field(value = "endDate")
@@ -83,6 +88,12 @@ public class Event implements EventInterface {
 	private String category = null;
 	
 	/**
+	 * No args constructor
+	 * 
+	 */
+	public Event() { 	}
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param name - name of event
@@ -106,8 +117,8 @@ public class Event implements EventInterface {
 	 * Constructor
 	 * 
 	 * @param name - name of event
-	 * @param startDate - start date of event (i.e. 5/19/2019)
-	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
 	 * @param location - location of event
 	 */
 	public Event(String name, String startDate, String endDate, String location) {
@@ -115,7 +126,7 @@ public class Event implements EventInterface {
 		this.name = name;
 		this.eventId = UUID.randomUUID();
 		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
@@ -137,8 +148,8 @@ public class Event implements EventInterface {
 	 * Constructor
 	 * 
 	 * @param name - name of event
-	 * @param startDate - start date of event (i.e. 5/19/2019)
-	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
 	 * @param location - location of event
 	 * @param category - category of the event
 	 */
@@ -147,7 +158,7 @@ public class Event implements EventInterface {
 		this.name = name;
 		this.eventId = UUID.randomUUID();
 		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
@@ -171,8 +182,8 @@ public class Event implements EventInterface {
 	 * Constructor
 	 * 
 	 * @param name - name of event
-	 * @param startDate - start date of event (i.e. 5/19/2019)
-	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
 	 * @param startTime - start time of event (i.e. 5:00 PM)
 	 * @param endTime - end time of event (i.e. 10:30 AM)
 	 * @param location - location of event
@@ -181,8 +192,8 @@ public class Event implements EventInterface {
 		
 		this.name = name;
 		this.eventId = UUID.randomUUID();
-		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+				DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
@@ -216,8 +227,8 @@ public class Event implements EventInterface {
 	 * Constructor
 	 * 
 	 * @param name - name of event
-	 * @param startDate - start date of event (i.e. 5/19/2019)
-	 * @param endDate - end date of event (i.e. 10/2/2019)
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
 	 * @param startTime - start time of event (i.e. 5:00 PM)
 	 * @param endTime - end time of event (i.e. 10:30 AM)
 	 * @param location - location of event
@@ -228,7 +239,7 @@ public class Event implements EventInterface {
 		this.name = name;
 		this.eventId = UUID.randomUUID();
 		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
@@ -303,6 +314,7 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
+	@JsonIgnore
 	public int[] getStartTime() {
 		
 		int[] time = {startHour, startMinute};
@@ -311,6 +323,7 @@ public class Event implements EventInterface {
 	}
 
 	@Override
+	@JsonIgnore
 	public int[] getEndTime() {
 
 		int[] time = {endHour, endMinute};
@@ -319,9 +332,10 @@ public class Event implements EventInterface {
 	}
 
 	@Override
+	@JsonIgnore
 	public void setStartDate(String start) {
 		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localStartDate = LocalDate.parse(start, formatDate);
 		
 		this.startYear = localStartDate.getYear();
@@ -330,11 +344,11 @@ public class Event implements EventInterface {
 		
 		
 		if(localStartDate.getDayOfMonth() > localStartDate.getMonth().length(localStartDate.isLeapYear())) {
-			System.err.println("Day is out of bounds setting to end of month");
+			log.severe("Day is out of bounds setting to end of month");
 			this.startDay = localStartDate.getMonth().length(localStartDate.isLeapYear());
 		}
 		else if(localStartDate.getDayOfMonth() < 0 ) {
-			System.err.println("Day is out of bounds setting to start of month");
+			log.severe("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
 		
@@ -343,9 +357,10 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
+	@JsonIgnore
 	public void setEndDate(String end) {
 		
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localEndDate = LocalDate.parse(end, formatDate);
 		
 		this.startYear = localEndDate.getYear();
@@ -353,11 +368,11 @@ public class Event implements EventInterface {
 		this.startDay = localEndDate.getDayOfMonth();
 		
 		if(localEndDate.getDayOfMonth() > localEndDate.getMonth().length(localEndDate.isLeapYear())) {
-			System.err.println("Day is out of bounds setting to end of month");
+			log.severe("Day is out of bounds setting to end of month");
 			this.startDay = localEndDate.getMonth().length(localEndDate.isLeapYear());
 		}
 		else if(localEndDate.getDayOfMonth() < 0 ) {
-			System.err.println("Day is out of bounds setting to start of month");
+			log.severe("Day is out of bounds setting to start of month");
 			this.startDay = 1;
 		}
 		
@@ -371,20 +386,20 @@ public class Event implements EventInterface {
 		this.startMinute = start[1];
 		
 		if(startHour > 23 ) {
-			System.err.println("Start hour is too large setting to 23");
+			log.severe("Start hour is too large setting to 23");
 			this.startHour = 23;
 		}
 		else if(startHour < 0) {
-			System.err.println("Start hour is too small setting to 0");
+			log.severe("Start hour is too small setting to 0");
 			this.startHour = 0;
 		}
 		
 		if(startMinute > 59) {
-			System.err.println("Start minute is too large setting to 59");
+			log.severe("Start minute is too large setting to 59");
 			this.startMinute = 59;
 		}
 		else if(startMinute < 0) {
-			System.err.println("Start minute is too small setting to 0");
+			log.severe("Start minute is too small setting to 0");
 			this.startMinute = 0;
 		}
 		
@@ -398,20 +413,20 @@ public class Event implements EventInterface {
 		this.endMinute = end[1];
 		
 		if(endHour > 23 ) {
-			System.err.println("End hour is too large setting to 23");
+			log.severe("End hour is too large setting to 23");
 			this.endHour = 23;
 		}
 		else if(endHour < 0) {
-			System.err.println("End hour is too small setting to 0");
+			log.severe("End hour is too small setting to 0");
 			this.endHour = 0;
 		}
 		
 		if(endMinute > 59) {
-			System.err.println("End minute is too large setting to 59");
+			log.severe("End minute is too large setting to 59");
 			this.endMinute = 59;
 		}
 		else if(endMinute < 0) {
-			System.err.println("End minute is too small setting to 0");
+			log.severe("End minute is too small setting to 0");
 			this.endMinute = 0;
 		}
 		
@@ -419,7 +434,8 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
-	public String toString() {
+	@JsonIgnore
+	public String DateTimeToString() {
 		String DateAndTime = ("Date: " + startDate + "   Time: " + startTime + "\n" +
 				"Date: " + endDate + "   Time: " + endTime);
 		
@@ -431,6 +447,7 @@ public class Event implements EventInterface {
 	 * 
 	 * @return start date as a string
 	 */
+	@JsonIgnore
 	private String compileStartDate() {
 		String startDate = (this.startMonth.getValue() + "/" + this.startDay + 
 				"/" + this.startYear);
@@ -464,6 +481,7 @@ public class Event implements EventInterface {
 	 * 
 	 * @return end date as a string
 	 */
+	@JsonIgnore
 	private String compileEndDate() {
 		String endDate = (this.endMonth.getValue() + "/" + this.endDay + 
 				"/" + this.endYear);
@@ -471,11 +489,33 @@ public class Event implements EventInterface {
 		return endDate;
 	}
 	
+	@Override
+	@JsonIgnore
+	public String toString() {
+		return "Event { "
+				+ "id=" + eventId + '\''
+				+ ", name=" + name + '\''
+				+ ", startDay=" + startDay + '\''
+				+ ", startMonth=" + startMonth + '\''
+				+ ", startYear=" + startYear + '\''
+				+ ", location=" + location + '\''
+				+ ", endDay=" + endDay + '\''
+				+ ", endMonth=" + endMonth + '\''
+				+ ", endYear=" + endYear + '\''
+				+ ", startHour=" + startHour + '\''
+				+ ", startMinute=" + startMinute + '\''
+				+ ", endHour=" + endHour + '\''
+				+ ", endMinute=" + endMinute + '\''
+				+ ", category=" + category + '\''
+				+ " }";
+	}
+	
 //	/*
 //	 * Puts each component of the start time into a string
 //	 * 
 //	 * @return start time as a string
 //	 */
+//	@JsonIgnore
 //	private String compileStartTime() {
 //		String startTime = (this.startHour + ":" + this.startMinute + ":" + this.startSecond);
 //		
@@ -487,6 +527,7 @@ public class Event implements EventInterface {
 //	 * 
 //	 * @return end time as a string
 //	 */
+//	@JsonIgnore
 //	private String compileEndTime() {
 //		String startTime = (this.endHour + ":" + this.endMinute + ":" + this.endSecond);
 //		

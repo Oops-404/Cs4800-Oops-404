@@ -1,7 +1,7 @@
 package cs4800.controller;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,43 +26,38 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	/*
-	 * POST
-	 */
-	
+	//CREATE A USER
 	@PostMapping("/save")
 	public User save(@RequestBody User user) {
-		log.info("Saving event info...");
+		log.info("Saving user info...");
 		return userService.save(user);
 	}
 	
-	/*
-	 * PUT
-	 */
-	
+	//UPDATE USER INFO
 	@PutMapping("/update")
 	public User update(@RequestBody User user) {
-		log.info("Updating event info...");
+		log.info("Updating user info...");
 		return userService.save(user);
 	}
 	
-	/*
-	 * GET
-	 */
-		
-	@GetMapping("/{userEmail}")
-	public Optional<User> getEvent(@PathVariable(name = "userEmail") String email) {
-		log.info("Getting event with user ID: " + email);
-		return userService.getUser(email);
+	//GET ALL USERS
+	@GetMapping("/all")
+	public List<User> getAllUsers() {
+		log.info("Getting all users...");
+		return userService.getAllUsers();
 	}
 	
-	/*
-	 * DELETE
-	 */
+	//GET USER BY EMAIL
+	@GetMapping("/{userEmail}")
+	public Optional<User> getUserByEmail(@PathVariable(name = "userEmail") String email) {
+		log.info("Getting user with email: " + email);
+		return userService.getUserByEmail(email);
+	}
 	
+	//DELETE A USER
 	@DeleteMapping("/delete/{userEmail}")
 	public void deleteUser(@PathVariable(name = "userEmail") String email) {
-		log.info("Deleting event with user ID: " + email);
-		userService.deleteUser(email);
+		log.info("Deleting user with email: " + email);
+		userService.deleteUserByEmail(email);
 	}
 }
