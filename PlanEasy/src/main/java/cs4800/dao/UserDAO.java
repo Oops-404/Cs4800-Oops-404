@@ -13,4 +13,6 @@ import cs4800.user.User;
 public interface UserDAO extends MongoRepository<User, String> {
 
     User findByEmail(String email);
+    
+    void deleteByEmail(String email);
 }

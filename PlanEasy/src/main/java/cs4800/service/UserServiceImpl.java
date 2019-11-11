@@ -32,11 +32,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUserByEmail(String email) {
-		userDAO.deleteById(email);
+		userDAO.deleteByEmail(email);
 	}
 
 	@Override
-	public Optional<User> getUserByEmail(String email) {
-		return userDAO.findById(email);
+	public User getUserByEmail(String email) {
+		return userDAO.findByEmail(email);
 	}
 }

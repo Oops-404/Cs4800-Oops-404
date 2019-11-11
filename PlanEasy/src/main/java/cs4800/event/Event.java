@@ -314,7 +314,6 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
-	@JsonIgnore
 	public int[] getStartTime() {
 		
 		int[] time = {startHour, startMinute};
@@ -323,7 +322,6 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	@JsonIgnore
 	public int[] getEndTime() {
 
 		int[] time = {endHour, endMinute};

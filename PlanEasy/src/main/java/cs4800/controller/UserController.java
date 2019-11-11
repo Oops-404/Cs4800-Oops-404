@@ -49,7 +49,7 @@ public class UserController {
 	
 	//GET USER BY EMAIL
 	@GetMapping("/{userEmail}")
-	public Optional<User> getUserByEmail(@PathVariable(name = "userEmail") String email) {
+	public User getUserByEmail(@PathVariable(name = "userEmail") String email) {
 		log.info("Getting user with email: " + email);
 		return userService.getUserByEmail(email);
 	}
