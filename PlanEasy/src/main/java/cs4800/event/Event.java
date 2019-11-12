@@ -32,6 +32,10 @@ public class Event implements EventInterface {
 	@Id
 	@Field(value = "eventId")
 	private UUID eventId; // primary key
+	
+	//Id of the calendar to be associated with a calendar
+	@Field(value = "calendarId")
+	private String calendarId;
 
 	//Name of the event
 	@Field(value = "name")
@@ -328,6 +332,18 @@ public class Event implements EventInterface {
 		
 		return time;
 	}
+	
+	@Override
+	public void setCalendarId(String calendarId) {
+		
+		this.calendarId = calendarId;
+	}
+	
+	@Override
+	public String getCalendarId() {
+		
+		return this.calendarId;
+	}
 
 	@Override
 	@JsonIgnore
@@ -430,6 +446,8 @@ public class Event implements EventInterface {
 		
 //		this.endTime = this.compileEndTime();
 	}
+	
+	
 	
 	@Override
 	@JsonIgnore

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
+/**
  * Calendar class that can be used to create 
  * an arrayList to represent months of a year
  */
@@ -33,7 +33,7 @@ public class Calendar {
 	 */
 	private List<DayOfWeek> calendarMonth = null;
 	
-	/*
+	/**
 	 * Default constructor that will use the current 
 	 * system time to instantiate the calendar
 	 */
@@ -51,7 +51,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Constructor that will take three ints 
 	 * to set the year month and day of the calendar
 	 * 
@@ -85,7 +85,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Gets the name of the first day of the month 
 	 * 
 	 * @Return DayOfWeek of the first day of the month
@@ -96,7 +96,7 @@ public class Calendar {
 		return firstDayOfMonth.getDayOfWeek();
 	}
 	
-	/*
+	/**
 	 * Gets the day of the week of a specified day in the current 
 	 * month and year
 	 * 
@@ -109,7 +109,7 @@ public class Calendar {
 		return dayOfWeek.getDayOfWeek();
 	}
 	
-	/*
+	/**
 	 * Gets the day of the week of a specified day in a specified 
 	 * month and year 
 	 * 
@@ -124,7 +124,7 @@ public class Calendar {
 		return dayOfWeek.getDayOfWeek();
 	}
 	
-	/*
+	/**
 	 * Returns the the length of the current month
 	 * 
 	 * @Return int with length of month 
@@ -134,7 +134,7 @@ public class Calendar {
 		return this.getMonth().length(leapYear);
 	}
 	
-	/*
+	/**
 	 * Sets the current month of the calendar with
 	 * 1 being January and 12 being December
 	 * 
@@ -153,7 +153,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Sets the current month of the calendar to the next month
 	 * e.g. if the current month is May nextMonth with set the 
 	 * calendar month to June
@@ -171,7 +171,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Sets the current month of the calendar to the previous month
 	 * e.g. if the current month is May lastMonth with set the 
 	 * calendar month to April
@@ -189,7 +189,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Returns the current month the calendar is set to
 	 * 
 	 * @Return Month that the calendar is set to 
@@ -199,7 +199,7 @@ public class Calendar {
 		return months.get(month);
 	}
 	
-	/*
+	/**
 	 * Returns the current year the calendar is set to
 	 * 
 	 * @Return int Year the calendar is set to
@@ -209,7 +209,7 @@ public class Calendar {
 		return this.year;
 	}
 	
-	/*
+	/**
 	 * Sets the current year of the calendar to 
 	 * specified year 
 	 * 
@@ -223,7 +223,7 @@ public class Calendar {
 		this.createCalendarMonth();
 	}
 	
-	/*
+	/**
 	 * Sets the current day the calendar is set to 
 	 * 
 	 * @Param int day to set calendar to
@@ -240,7 +240,7 @@ public class Calendar {
 		this.day = day;
 	}
 	
-	/*
+	/**
 	 * Returns the current day the calendar is set to
 	 * 
 	 * @Return int day calendar is set to
@@ -250,7 +250,7 @@ public class Calendar {
 		return this.day;
 	}
 	
-	/*
+	/**
 	 * Returns the List containing a list DayofWeek 
 	 * objects that represent the currently selected month 
 	 * 
@@ -261,7 +261,7 @@ public class Calendar {
 		return this.calendarMonth;
 	}
 	
-	/*
+	/**
 	 * Loads the months list with all of the months 
 	 * of the year. 
 	 * 
@@ -284,7 +284,7 @@ public class Calendar {
 		months.add(Month.DECEMBER);
 	}
 	
-	/*
+	/**
 	 * Loads the calendarMonth List with DayOfWeek objects 
 	 * to represent the currently selected month 
 	 * 

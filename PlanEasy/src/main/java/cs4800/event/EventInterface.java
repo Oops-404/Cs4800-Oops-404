@@ -125,6 +125,21 @@ public interface EventInterface {
 	 * @param category - category of event
 	 */
 	void setCategory(String category);
+	
+	/**
+	 * Set the Id of the calendar the event should be 
+	 * associated with
+	 * 
+	 * @param calendarId
+	 */
+	void setCalendarId(String calendarId);
+	
+	/**
+	 * Returns the Id of the associated calendar
+	 * 
+	 * @return String Calendar Id
+	 */
+	String getCalendarId();
 
 	String DateTimeToString();
 
