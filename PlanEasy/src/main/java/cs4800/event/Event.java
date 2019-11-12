@@ -54,7 +54,7 @@ public class Event implements EventInterface {
 	
 	// Start date as a string for easier output
 	@Field(value = "startDate")
-	private String startDate = null;
+	private LocalDate startDate = null;
 	
 	//End date split into its components for easier manipulation
 	@Field(value = "endDay")
@@ -66,7 +66,7 @@ public class Event implements EventInterface {
 	
 	//End date as a string for easier output
 	@Field(value = "endDate")
-	private String endDate = null;
+	private LocalDate endDate = null;
 	
 	//Start time split into its components for easier manipulation
 	@Field(value = "startHour")
@@ -346,27 +346,27 @@ public class Event implements EventInterface {
 	}
 
 	@Override
-	@JsonIgnore
 	public void setStartDate(String start) {
 		
 		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localStartDate = LocalDate.parse(start, formatDate);
+		this.startDate = localStartDate;
 		
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
-		
-		if(localStartDate.getDayOfMonth() > localStartDate.getMonth().length(localStartDate.isLeapYear())) {
-			log.severe("Day is out of bounds setting to end of month");
-			this.startDay = localStartDate.getMonth().length(localStartDate.isLeapYear());
-		}
-		else if(localStartDate.getDayOfMonth() < 0 ) {
-			log.severe("Day is out of bounds setting to start of month");
-			this.startDay = 1;
-		}
-		
-		this.startDate = this.compileStartDate();
+//		
+//		if(localStartDate.getDayOfMonth() > localStartDate.getMonth().length(localStartDate.isLeapYear())) {
+//			log.severe("Day is out of bounds setting to end of month");
+//			this.startDay = localStartDate.getMonth().length(localStartDate.isLeapYear());
+//		}
+//		else if(localStartDate.getDayOfMonth() < 0 ) {
+//			log.severe("Day is out of bounds setting to start of month");
+//			this.startDay = 1;
+//		}
+//		
+//		this.startDate = this.compileStartDate();
 		
 	}
 	
@@ -376,21 +376,22 @@ public class Event implements EventInterface {
 		
 		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 		LocalDate localEndDate = LocalDate.parse(end, formatDate);
+		this.endDate = localEndDate;
 		
 		this.startYear = localEndDate.getYear();
 		this.startMonth = localEndDate.getMonth();
 		this.startDay = localEndDate.getDayOfMonth();
 		
-		if(localEndDate.getDayOfMonth() > localEndDate.getMonth().length(localEndDate.isLeapYear())) {
-			log.severe("Day is out of bounds setting to end of month");
-			this.startDay = localEndDate.getMonth().length(localEndDate.isLeapYear());
-		}
-		else if(localEndDate.getDayOfMonth() < 0 ) {
-			log.severe("Day is out of bounds setting to start of month");
-			this.startDay = 1;
-		}
-		
-		this.endDate = this.compileEndDate();
+//		if(localEndDate.getDayOfMonth() > localEndDate.getMonth().length(localEndDate.isLeapYear())) {
+//			log.severe("Day is out of bounds setting to end of month");
+//			this.startDay = localEndDate.getMonth().length(localEndDate.isLeapYear());
+//		}
+//		else if(localEndDate.getDayOfMonth() < 0 ) {
+//			log.severe("Day is out of bounds setting to start of month");
+//			this.startDay = 1;
+//		}
+//		
+//		this.endDate = this.compileEndDate();
 	}
 
 	@Override
@@ -450,25 +451,11 @@ public class Event implements EventInterface {
 	
 	
 	@Override
-	@JsonIgnore
 	public String DateTimeToString() {
 		String DateAndTime = ("Date: " + startDate + "   Time: " + startTime + "\n" +
 				"Date: " + endDate + "   Time: " + endTime);
 		
 		return DateAndTime;
-	}
-	
-	/*
-	 * Puts each component of the start date into a string
-	 * 
-	 * @return start date as a string
-	 */
-	@JsonIgnore
-	private String compileStartDate() {
-		String startDate = (this.startMonth.getValue() + "/" + this.startDay + 
-				"/" + this.startYear);
-		
-		return startDate;
 	}
 
 	@Override
@@ -491,13 +478,23 @@ public class Event implements EventInterface {
 		this.category = category;
 	}
 	
+	/*
+	 * Puts each component of the start date into a string
+	 * 
+	 * @return start date as a string
+	 */
+	private String compileStartDate() {
+		String startDate = (this.startMonth.getValue() + "/" + this.startDay + 
+				"/" + this.startYear);
+		
+		return startDate;
+	}
 	
 	/*
 	 * Puts each component of the end date into a string
 	 * 
 	 * @return end date as a string
 	 */
-	@JsonIgnore
 	private String compileEndDate() {
 		String endDate = (this.endMonth.getValue() + "/" + this.endDay + 
 				"/" + this.endYear);
@@ -506,7 +503,6 @@ public class Event implements EventInterface {
 	}
 	
 	@Override
-	@JsonIgnore
 	public String toString() {
 		return "Event { "
 				+ "id=" + eventId + '\''

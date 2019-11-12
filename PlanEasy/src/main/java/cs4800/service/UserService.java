@@ -1,8 +1,6 @@
 package cs4800.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import cs4800.user.User;
 
 public interface UserService {

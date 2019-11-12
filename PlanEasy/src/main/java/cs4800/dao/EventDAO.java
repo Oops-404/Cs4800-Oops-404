@@ -59,10 +59,9 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	
 	/**
 	 * Get all events that ended before this date 
-	 * (for deletion to save storage)
 	 * 
 	 * @param endDate - ending date of event
 	 * @return list of events
 	 */
-	List<Event> findByEndDateLessThan(LocalDate endDate);
+	List<Event> FindByEndDateBefore(LocalDate endDate);
 }
