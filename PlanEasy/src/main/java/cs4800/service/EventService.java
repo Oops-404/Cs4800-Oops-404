@@ -20,9 +20,7 @@ public interface EventService {
 	
 	Optional<Event> getEvent(UUID eventId);
 
-	/*
-	 * Custom Queries
-	 */
+	// CUSTOM QUERIES 
 	
 	List<Event> getEventsByName(String name);
 	
@@ -30,9 +28,9 @@ public interface EventService {
 	
 	List<Event> getEventsByStartDate(LocalDate startDate);
 	
-	List<Event> getEventsByStartTime(LocalTime localStartTime);
+	List<Event> getEventsByStartTime(LocalTime startTime);
 	
 	List<Event> getEventsByCategory(String category);
 	
-	List<Event> getEventByEndDate();
+	List<Event> getEventsByEndDateBefore(LocalDate endDate);
 }

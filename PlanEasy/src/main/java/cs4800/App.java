@@ -14,11 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import cs4800.dao.EventDAO;
 import cs4800.dao.RoleDAO;
-import cs4800.dao.UserDAO;
-import cs4800.event.Event;
-import cs4800.security.CustomUserDetailsService;
 import cs4800.security.Role;
-import cs4800.user.User;
 
 @EnableMongoRepositories({"cs4800.dao"})
 @SpringBootApplication
