@@ -1,18 +1,48 @@
 package cs4800.service;
 
 import java.util.List;
+import java.util.UUID;
+
 import cs4800.user.User;
 
 public interface UserService {
 
-	User save(User user);
+	/**
+	 * Add user to the database.
+	 * 
+	 * @param user
+	 * @return the added user
+	 */
+	User addUser(User user);
 	
-	User update(User user);
+	/**
+	 * Update user's information in the database.
+	 * 
+	 * @param user
+	 * @param userId
+	 * @return the updated user
+	 */
+	User updateUser(User user, UUID userId);
 	
+	/**
+	 * Get all users in the database.
+	 * 
+	 * @return list of all users
+	 */
 	List<User> getAllUsers();
 	
-	void deleteUserByEmail(String email);
-	
+	/**
+	 * Query for a user by email.
+	 * 
+	 * @param email
+	 * @return user
+	 */
 	User getUserByEmail(String email);
 	
+	/**
+	 * Delete a user from the database by email.
+	 * 
+	 * @param email
+	 */
+	void deleteUserByEmail(String email);	
 }

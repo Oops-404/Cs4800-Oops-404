@@ -1,6 +1,7 @@
 package cs4800.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,12 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 	
 	@Override
-	public User save(User user) {
+	public User addUser(User user) {
 		return userDAO.save(user);
 	}
 
 	@Override
-	public User update(User user) {
+	public User updateUser(User user, UUID userId) {
 		return userDAO.save(user);
 	}
 

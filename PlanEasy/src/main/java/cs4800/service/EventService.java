@@ -10,27 +10,91 @@ import java.util.UUID;
 
 public interface EventService {
 	
-	Event save(Event event);
+	/**
+	 * Add a new event to the database.
+	 * 
+	 * @param event
+	 * @return event that has been added
+	 */
+	Event addEvent(Event event);
 	
-	Event update(Event event);
+	/**
+	 * Update an event's information in the database.
+	 * 
+	 * @param event
+	 * @return event that has been updated
+	 */
+	Event updateEvent(Event event, UUID eventId);
 	
+	/**
+	 * Get an event by event ID.
+	 * 
+	 * @param eventId
+	 * @return
+	 */
+	Optional<Event> getEvent(UUID eventId);
+	
+	/**
+	 * Get all events in the database.
+	 * 
+	 * @return list of all events
+	 */
 	List<Event> getAllEvent();
 	
+	/**
+	 * Delete an event from the database by event ID.
+	 * 
+	 * @param eventId
+	 */
 	void deleteEvent(UUID eventId);
 	
-	Optional<Event> getEvent(UUID eventId);
-
 	// CUSTOM QUERIES 
 	
+	/**
+	 * Query for events by event name.
+	 * 
+	 * @param name
+	 * @return list of events
+	 */
 	List<Event> getEventsByName(String name);
 	
+	/**
+	 * Query for events by event location.
+	 * 
+	 * @param location
+	 * @return list of events
+	 */
 	List<Event> getEventsByLocation(String location);
 	
+	/**
+	 * Query for events by event by start date.
+	 * 
+	 * @param startDate
+	 * @return list of events
+	 */
 	List<Event> getEventsByStartDate(LocalDate startDate);
 	
+	/**
+	 * Query for events by event start time.
+	 * 
+	 * @param startTime
+	 * @return list of events
+	 */
 	List<Event> getEventsByStartTime(LocalTime startTime);
 	
+	/**
+	 * Query for events by event category.
+	 * 
+	 * @param category
+	 * @return list of events
+	 */
 	List<Event> getEventsByCategory(String category);
 	
+	/**
+	 * Query for events by event end date.
+	 * 
+	 * @param endDate
+	 * @return list of events
+	 */
 	List<Event> getEventsByEndDateBefore(LocalDate endDate);
 }

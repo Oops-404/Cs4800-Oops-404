@@ -35,50 +35,85 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
-	//CREATE AN EVENT	
+	/**
+	 * Create new event.
+	 * 
+	 * @param event
+	 * @return the new event
+	 */
 	@PostMapping("/save")
 	public Event save(@RequestBody Event event) {
 		log.info("Saving event info...");
-		return eventService.save(event);
+		return eventService.addEvent(event);
 	}
 	
-	//UPDATE AN EVENT
-	@PutMapping("/update")
-	public Event update(@RequestBody Event event, UUID eventId) {
+	/**
+	 * Update event information.
+	 * 
+	 * @param event
+	 * @param eventId
+	 * @return the updated event
+	 */
+	@PutMapping("/save/{eventId}")
+	public Event update(@RequestBody Event event, @PathVariable(name = "eventId") UUID eventId) {
 		event.setEventId(eventId);
 		log.info("Updating event info...");
-		return eventService.save(event);
+		return eventService.updateEvent(event, eventId);
 	}
 	
-	//GET ALL EVENTS
+	/**
+	 * Get all events.
+	 * 
+	 * @return list of all events
+	 */
 	@GetMapping("/all")
 	public List<Event> getAllEvent() {
 		log.info("Getting all events...");
 		return eventService.getAllEvent();
 	}
 	
-	//RETRIEVE SINGLE EVENT
+	/**
+	 * Get single event.
+	 * 
+	 * @param eventId
+	 * @return
+	 */
 	@GetMapping("/id/{eventId}")
 	public Optional<Event> getEvent(@PathVariable(name = "eventId") UUID eventId) {
 		log.info("Getting event with event ID: " + eventId);
 		return eventService.getEvent(eventId);
 	}
 	
-	//GET ALL EVENTS CONTAINING __ IN THE NAME
+	/**
+	 * Get all events containing __ in the name.
+	 * 
+	 * @param name - a substring of the event name
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/name/{name}")
 	public List<Event> getEventByName(@PathVariable(name = "name") String name) {
 		log.info("Getting events with event name containing: " + name);
 		return eventService.getEventsByName(name);
 	}
 
-	//GET ALL EVENTS CONTAINING __ IN THE LOCATION
+	/**
+	 * Get all events containing __ in the location.
+	 * 
+	 * @param location
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/location/{location}")
 	public List<Event> getEventByLocation(@PathVariable(name = "location") String location) {
 		log.info("Getting events with event location containing: " + location);
 		return eventService.getEventsByLocation(location);
 	}
 	
-	//GET ALL EVENTS STARTING ON THIS DATE
+	/**
+	 * Get all events that start on this date.
+	 * 
+	 * @param startDate - starting date of event (i.e. 2019-03-23)
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/startDate/{startDate}") 
 	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate) {
 		log.info("Getting events with event start date: " + startDate);
@@ -87,8 +122,13 @@ public class EventController {
 		return eventService.getEventsByStartDate(localStartDate);
 	}
 	
-	//GET ALL EVENTS STARTING AT THIS TIME
-	@GetMapping("/startTime/{startTime}")
+	/**
+	 * Get all events that start at this time.
+	 * 
+	 * @param startTime - starting time of event (i.e. 4:00PM)
+	 * @return list of events that match the query search
+	 */
+	@GetMapping("/startTime/{startTime}")	
 	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") @DateTimeFormat(pattern = "h:mma") String startTime) {
 		log.info("Getting events with event start time: " + startTime);
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
@@ -96,21 +136,32 @@ public class EventController {
 		return eventService.getEventsByStartTime(localStartTime);
 	}
 	
-	//GET ALL EVENTS CONTAINING __ IN THE CATEGORY
+	/**
+	 * Get all events containing __ in the category
+	 * 
+	 * @param category
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/category/{category}")
 	public List<Event> getEventByCategory(@PathVariable(name = "category") String category) {
 		log.info("Getting events with event category: " + category);
 		return eventService.getEventsByCategory(category);
 	}
 	
-	//DELETE AN EVENT
+	/**
+	 * Delete an event by ID
+	 * 
+	 * @param eventId
+	 */	
 	@DeleteMapping("/delete/{eventId}")
 	public void deleteEvent(@PathVariable(name = "eventId") UUID eventId) {
 		log.info("Deleting event with event ID: " + eventId);
 		eventService.deleteEvent(eventId);
 	}
 	
-	//DELETE ALL EVENTS THAT HAVE ENDED (END DATE < TODAY'S DATE)
+	/**
+	 * Delete all events that have ended (end date < today's date)
+	 */
 	@DeleteMapping("/delete")
 	public void deleteEventIfEnded() {
 		LocalDate today = LocalDate.now();

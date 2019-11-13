@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.MongoException;
+
 import cs4800.dao.EventDAO;
 import cs4800.event.Event;
 
@@ -23,14 +25,30 @@ public class EventServiceImpl implements EventService {
 	private EventDAO eventDAO;
 	
 	@Override
-	public Event save(Event event) {
+	public Event addEvent(Event event) {
 		return eventDAO.save(event);
 	}
 
 	@Override
-	public Event update(Event event) {
-		return eventDAO.save(event);
-	}
+	public Event updateEvent(Event event, UUID eventId) {
+		if (eventDAO.findById(eventId).isPresent()) {
+			
+            Event e = eventDAO.findById(eventId).get();
+            
+            e.setName(event.getName());
+            e.setLocation(event.getLocation());
+            e.setCategory(event.getCategory());
+            e.setStartDate(event.getStartDate().toString());
+            e.setEndDate(event.getEndDate().toString());
+            e.setStartTime(event.getStartTime());
+            e.setEndTime(event.getEndTime());
+            
+            return eventDAO.save(e);
+        }
+        else {
+            throw new MongoException("Record not found");
+        }
+   	}
 
 	@Override
 	public List<Event> getAllEvent() {
