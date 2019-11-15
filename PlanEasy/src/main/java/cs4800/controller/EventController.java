@@ -69,7 +69,7 @@ public class EventController {
 	@GetMapping("/all")
 	public List<Event> getAllEvent() {
 		log.info("Getting all events...");
-		return eventService.getAllEvent();
+		return eventService.getAllEvents();
 	}
 	
 	/**

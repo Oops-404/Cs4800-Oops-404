@@ -14,10 +14,6 @@ import com.mongodb.MongoException;
 import cs4800.dao.EventDAO;
 import cs4800.event.Event;
 
-/*
- * EventService is responsible for all CRUD operations regarding event information
- */
-
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -51,7 +47,7 @@ public class EventServiceImpl implements EventService {
    	}
 
 	@Override
-	public List<Event> getAllEvent() {
+	public List<Event> getAllEvents() {
 		return eventDAO.findAll();
 	}
 

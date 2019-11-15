@@ -22,6 +22,7 @@ public interface EventService {
 	 * Update an event's information in the database.
 	 * 
 	 * @param event
+	 * @param eventId
 	 * @return event that has been updated
 	 */
 	Event updateEvent(Event event, UUID eventId);
@@ -30,7 +31,7 @@ public interface EventService {
 	 * Get an event by event ID.
 	 * 
 	 * @param eventId
-	 * @return
+	 * @return specific event
 	 */
 	Optional<Event> getEvent(UUID eventId);
 	
@@ -39,7 +40,7 @@ public interface EventService {
 	 * 
 	 * @return list of all events
 	 */
-	List<Event> getAllEvent();
+	List<Event> getAllEvents();
 	
 	/**
 	 * Delete an event from the database by event ID.

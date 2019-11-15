@@ -5,24 +5,42 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
  * Calendar class that can be used to create 
  * an arrayList to represent months of a year
  */
+@Getter
+@Setter
+@Document(collection = "calendar")
 public class Calendar {
 
+	@Id
+	@Field(value = "calenderId")
+	private UUID calenderId;
 	/*
 	 * ints are used to store the month and year currently 
 	 * selected in the calendar
 	 * 
 	 */
+	@Field(value = "year")
 	private int year;
+	@Field(value = "month")
 	private int month;
+	@Field(value = "day")
 	private int day;
 	
 	//boolean will store if the current year is a leap year 
+	@Field(value = "leapYear")
 	private boolean leapYear;
 	
 	//List that will hold all of the months of the year
@@ -330,5 +348,13 @@ public class Calendar {
 		System.out.println(cal.getYear());
 		System.out.println(cal.getMonth());
 		System.out.println(month.toString());
+	}
+
+	public void setCalendarId(UUID calenderId) {
+		this.calenderId = calenderId;
+	}
+	
+	public UUID getCalendarId() {
+		return calenderId;
 	}
 }
