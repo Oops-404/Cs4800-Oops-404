@@ -59,7 +59,7 @@ public class WebScrapeImpl implements WebScrape{
 		if(time.contentEquals("All day event "))
 			return "4:00 PM";
 		else
-			return time.substring(time.indexOf(" - ") + 3, time.length() - 2) + time.substring(time.length() - 2, time.length()).toUpperCase();
+			return time.substring(time.indexOf(" - ") + 3, time.length() - 3) + time.substring(time.length() - 3, time.length() - 1).toUpperCase();
 	}
 	
 }
