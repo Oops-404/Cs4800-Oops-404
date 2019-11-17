@@ -42,14 +42,19 @@ public class Calendar {
 	//boolean will store if the current year is a leap year 
 	@Field(value = "leapYear")
 	private boolean leapYear;
-	
+
 	//List that will hold all of the months of the year
+	@Field(value = "months")
 	private List<Month> months = null;
 	
 	/* List that will be filled with DayOfWeek objects 
 	 * that represents a given month
 	 */
+	@Field(value = "calendarMonth")
 	private List<DayOfWeek> calendarMonth = null;
+		
+	@Field(value = "events")
+	private List<UUID> eventsInCalendar;
 	
 	/**
 	 * Default constructor that will use the current 
@@ -356,5 +361,21 @@ public class Calendar {
 	
 	public UUID getCalendarId() {
 		return calenderId;
+	}
+	
+	/**
+	 * Get list of events in a calendar.
+	 * @return
+	 */
+	public List<UUID> getEventsInCalendar() {
+		return eventsInCalendar;
+	}
+	
+	/**
+	 * Add an event to the list in a calendar.
+	 * @param eventId
+	 */
+	public void addEventToCalendar(UUID eventId) {
+		eventsInCalendar.add(eventId);
 	}
 }

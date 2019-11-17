@@ -51,8 +51,23 @@ public class UserController {
 	 */
 	@PutMapping("/save/{id}")
 	public User update(@RequestBody User user, @PathVariable(name = "userId") UUID userId) {
+		user.setUserId(userId);
 		log.info("Updating user info...");
 		return userService.updateUser(user, userId);
+	}
+
+	/**
+	 * Add calendar to a user.
+	 * @param user
+	 * @param userId
+	 * @param calendarId
+	 * @return updated user
+	 */
+	@PutMapping("/save/{id}/{calendarId}")
+	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
+		user.addCalendar(calendarId);
+		log.info("Adding calendar to user...");
+		return userService.addCalendarToUser(userId, calendarId);
 	}
 	
 	/**

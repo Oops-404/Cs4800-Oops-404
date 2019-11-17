@@ -11,5 +11,5 @@ import cs4800.calendar.Calendar;
  * 
  */
 public interface CalendarDAO extends MongoRepository<Calendar, UUID> {
-	
+		
 }
