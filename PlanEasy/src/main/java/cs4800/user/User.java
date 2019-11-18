@@ -1,5 +1,6 @@
 package cs4800.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -57,19 +58,29 @@ public class User implements UserInterface {
      * No args constructor
      */
     public User() {
+    	this.calendarsForUser = new ArrayList<UUID>();
     }
     
-    /*
+    /**
      * Constructor so that each new user must have a name and
      * a randomly generated user ID
+     * 
+     * @param name - User's name
      */
     public User(String name) {
         this.name = name;
+        this.calendarsForUser = new ArrayList<UUID>();
     }
-
+    
+    /**
+     * Constructor for authenticated user
+     * @param name - User's name 
+     * @param password - Users encrypted password
+     */
     public User(String name, String password) {
     	this.name = name;
     	this.password = password;
+    	this.calendarsForUser = new ArrayList<UUID>();
     }
 
     @Override

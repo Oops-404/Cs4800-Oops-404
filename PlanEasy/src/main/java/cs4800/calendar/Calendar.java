@@ -12,6 +12,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import cs4800.event.Event;
+import cs4800.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -73,6 +75,7 @@ public class Calendar {
 		this.month = today.getMonthValue() - 1;
 		this.day = today.getDayOfMonth();
 		this.leapYear = today.isLeapYear();
+		this.eventsInCalendar = new ArrayList<UUID>();
 		
 		this.createCalendarMonth();
 	}
@@ -95,7 +98,7 @@ public class Calendar {
 			month = 1;
 		}
 		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
-				day < Month.of(month).length(LocalDate.of(year, month, day).isLeapYear())) {
+				day < 0) {
 			
 			log.severe("Day out of bounds setting to the first");
 			day = 1;
@@ -107,6 +110,7 @@ public class Calendar {
 		this.month = month - 1;
 		this.day = day;
 		this.leapYear = today.isLeapYear();
+		this.eventsInCalendar = new ArrayList<UUID>();
 		
 		this.createCalendarMonth();
 	}
@@ -349,14 +353,27 @@ public class Calendar {
 	public static void main(String[] args) {
 		
 		Calendar cal = new Calendar();
+		Calendar cal2 = new Calendar(2019, 11, 17);
 		cal.setMonth(6);
 		cal.lastMonth();
 		cal.setDay(16);
+		
+		Event event = new Event("test");
+		Event event2 = new Event("test2");
+		Event event3 = new Event("test3");
+		cal.addEventToCalendar(event.getEventId());
+		cal.addEventToCalendar(event2.getEventId());
+		cal2.addEventToCalendar(event3.getEventId());
 		List<DayOfWeek> month = cal.getCalendarMonth();
 		
-		System.out.println(cal.getYear());
-		System.out.println(cal.getMonth());
-		System.out.println(month.toString());
+		User user1 = new User("testUser");
+		user1.addCalendar(cal.getCalendarId());
+		user1.addCalendar(cal2.getCalendarId());
+		
+		
+		System.out.println(cal.getEventsInCalendar());
+		System.out.println(cal2.getEventsInCalendar());
+		System.out.println(user1.getCalendarsForUser());
 	}
 
 	public void setCalendarId(UUID calenderId) {
