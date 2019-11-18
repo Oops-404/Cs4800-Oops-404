@@ -249,7 +249,7 @@ public class Calendar {
 	public void setDay(int day) {
 		
 		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
-				day < Month.of(month).length(LocalDate.of(year, month, day).isLeapYear())) {
+				day < 0) {
 			
 			System.err.println("Day out of bounds setting to the first");
 			day = 1;
@@ -343,6 +343,7 @@ public class Calendar {
 		Calendar cal = new Calendar();
 		cal.setMonth(6);
 		cal.lastMonth();
+		cal.setDay(16);
 		List<DayOfWeek> month = cal.getCalendarMonth();
 		
 		System.out.println(cal.getYear());
