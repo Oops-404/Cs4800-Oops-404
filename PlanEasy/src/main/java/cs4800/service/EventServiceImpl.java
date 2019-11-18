@@ -36,8 +36,8 @@ public class EventServiceImpl implements EventService {
             e.setCategory(event.getCategory());
             e.setStartDate(event.getStartDate().toString());
             e.setEndDate(event.getEndDate().toString());
-            e.setStartTime(event.getStartTime());
-            e.setEndTime(event.getEndTime());
+            e.setStartTime(event.getStartTime().toString());
+            e.setEndTime(event.getEndTime().toString());
             
             return eventDAO.save(e);
         }
@@ -48,7 +48,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> getAllEvents() {
-		return eventDAO.findAll();
+		return eventDAO.findAllByOrderByStartDateAsc();
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class User implements UserInterface {
     // ID of the user
     @Id
     @Field(value = "userId")
-    private UUID userId = null;
+    private UUID userId = UUID.randomUUID();
     
     // Name of the user
 	@Field(value = "name")
@@ -50,11 +50,13 @@ public class User implements UserInterface {
 	@Field(value = "calendars")
 	private List<UUID> calendarsForUser;
 
+	@Field(value = "calendarId")
+	private UUID calendarId;
+	
     /**
      * No args constructor
      */
     public User() {
-    	this.userId = UUID.randomUUID();
     }
     
     /*
@@ -63,13 +65,11 @@ public class User implements UserInterface {
      */
     public User(String name) {
         this.name = name;
-        this.userId = UUID.randomUUID();
     }
 
     public User(String name, String password) {
     	this.name = name;
     	this.password = password;
-    	this.userId = UUID.randomUUID();
     }
 
     @Override
@@ -145,7 +145,8 @@ public class User implements UserInterface {
 	 * @param calendarId
 	 */
 	public void addCalendar(UUID calendarId) {
-		calendarsForUser.add(calendarId);
+		this.calendarId = calendarId;
+		calendarsForUser.add(this.calendarId);
 	}
 	
 }

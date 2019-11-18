@@ -2,6 +2,7 @@ package cs4800.webscrape;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Component;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import cs4800.service.EventService;
 import cs4800.event.Event;
 
 @Component
-public class WebScrapeImpl implements WebScrape{
+public class WebScrapeImpl implements WebScrape {
+	
+	private static final Logger log = Logger.getLogger(WebScrapeImpl.class.getName());
 	
 	@Value("${link}")
 	private String link;
@@ -32,7 +33,7 @@ public class WebScrapeImpl implements WebScrape{
         	
         	String date = info.substring(info.indexOf("DATE : ") + 7, info.indexOf(" TIME:"));
         	String time = info.substring(info.indexOf("TIME:") + 6, info.indexOf("LOCATION:"));
-        	String location = info.substring(info.indexOf("LOCATION:") + 10, info.length());
+        	String location = "Cal Poly Pomona: " + info.substring(info.indexOf("LOCATION:") + 10, info.length());
         	
         	String startTime = getStartTime(time);
         	String endTime = getEndTime(time);
@@ -42,7 +43,8 @@ public class WebScrapeImpl implements WebScrape{
         	service.addEvent(event);
         	
 		}
-        	System.out.println(service.getAllEvents());
+        	log.info("Webscraping events into database...");
+        	log.info(service.getAllEvents().toString());
         	return service.getAllEvents();
 	} 
 	

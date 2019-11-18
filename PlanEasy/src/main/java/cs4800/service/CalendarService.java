@@ -34,7 +34,7 @@ public interface CalendarService {
 	 * @param eventId
 	 * @return updated calendar
 	 */
-	Calendar addEventToCalendar(UUID calendarId, UUID eventId);
+	Calendar addEventToCalendar(Calendar calendar, UUID calendarId, UUID eventId);
 	
 	/**
 	 * Get a calendar by calendar ID.

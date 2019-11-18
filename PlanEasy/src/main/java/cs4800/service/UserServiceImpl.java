@@ -1,6 +1,7 @@
 package cs4800.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User addCalendarToUser(UUID userId, UUID calendarId) {
+	public User addCalendarToUser(User user, UUID userId, UUID calendarId) {
 		if (userDAO.findById(userId).isPresent()) {
 			User u = userDAO.findById(userId).get();
 			
@@ -53,6 +54,11 @@ public class UserServiceImpl implements UserService {
         }
 	}
 
+	@Override
+	public Optional<User> getUser(UUID userId) {
+		return userDAO.findById(userId);
+	}
+	
 	@Override
 	public List<User> getAllUsers() {
 		return userDAO.findAll();

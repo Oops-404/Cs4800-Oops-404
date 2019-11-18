@@ -1,15 +1,16 @@
 package cs4800.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +50,7 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@PutMapping("/save/{id}")
+	@PatchMapping("/save/{userId}")
 	public User update(@RequestBody User user, @PathVariable(name = "userId") UUID userId) {
 		user.setUserId(userId);
 		log.info("Updating user info...");
@@ -63,11 +64,11 @@ public class UserController {
 	 * @param calendarId
 	 * @return updated user
 	 */
-	@PutMapping("/save/{id}/{calendarId}")
+	@PatchMapping("/addCalendar/{userId}")
 	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
 		user.addCalendar(calendarId);
 		log.info("Adding calendar to user...");
-		return userService.addCalendarToUser(userId, calendarId);
+		return userService.addCalendarToUser(user, userId, calendarId);
 	}
 	
 	/**
@@ -79,6 +80,18 @@ public class UserController {
 	public List<User> getAllUsers() {
 		log.info("Getting all users...");
 		return userService.getAllUsers();
+	}
+	
+	/**
+	 * Get user by user ID.
+	 * 
+	 * @param userId
+	 * @return specific user
+	 */
+	@GetMapping("/{userId}")
+	public Optional<User> getUser(@PathVariable(name = "userId") UUID userId) {
+		log.info("Getting user with user ID: " + userId);
+		return userService.getUser(userId);
 	}
 	
 	/**

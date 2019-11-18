@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +54,7 @@ public class EventController {
 	 * @param eventId
 	 * @return the updated event
 	 */
-	@PutMapping("/save/{eventId}")
+	@PatchMapping("/save/{eventId}")
 	public Event update(@RequestBody Event event, @PathVariable(name = "eventId") UUID eventId) {
 		event.setEventId(eventId);
 		log.info("Updating event info...");
@@ -115,7 +115,7 @@ public class EventController {
 	 * @return list of events that match the query search
 	 */
 	@GetMapping("/startDate/{startDate}") 
-	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate) {
+	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") String startDate) {
 		log.info("Getting events with event start date: " + startDate);
 		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
@@ -129,7 +129,7 @@ public class EventController {
 	 * @return list of events that match the query search
 	 */
 	@GetMapping("/startTime/{startTime}")	
-	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") @DateTimeFormat(pattern = "h:mma") String startTime) {
+	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") @DateTimeFormat(pattern = "h:mm a") String startTime) {
 		log.info("Getting events with event start time: " + startTime);
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
 		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
@@ -162,8 +162,8 @@ public class EventController {
 	/**
 	 * Delete all events that have ended (end date < today's date)
 	 */
-	@DeleteMapping("/delete")
-	public void deleteEventIfEnded() {
+	@GetMapping("/delete")
+	public List<Event> deleteEventIfEnded() {
 		LocalDate today = LocalDate.now();
 		log.info("Deleting events that ended before: " + today);
 		List<Event> toDelete = eventService.getEventsByEndDateBefore(today);
@@ -172,5 +172,8 @@ public class EventController {
 			log.info("Deleting event that has ended with event ID: " + id);
 			eventService.deleteEvent(id);
 		}
+		return toDelete;
 	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package cs4800.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import cs4800.user.User;
@@ -26,11 +27,20 @@ public interface UserService {
 	
 	/**
 	 * Add a calendar to a user.
+	 * @param user
 	 * @param userId
 	 * @param calendarId
 	 * @return updated user
 	 */
-	User addCalendarToUser(UUID userId, UUID calendarId);
+	User addCalendarToUser(User user, UUID userId, UUID calendarId);
+		
+	/**
+	 * Get a user by user ID.
+	 * 
+	 * @param calendarId
+	 * @return user
+	 */
+	Optional<User> getUser(UUID userId);
 	
 	/**
 	 * Get all users in the database.
@@ -38,9 +48,9 @@ public interface UserService {
 	 * @return list of all users
 	 */
 	List<User> getAllUsers();
-	
+
 	/**
-	 * Query for a user by email.
+	 * Get a user by email.
 	 * 
 	 * @param email
 	 * @return user

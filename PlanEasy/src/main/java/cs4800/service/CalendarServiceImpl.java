@@ -40,7 +40,7 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 	
 	@Override
-	public Calendar addEventToCalendar(UUID calendarId, UUID eventId) {
+	public Calendar addEventToCalendar(Calendar calendar, UUID calendarId, UUID eventId) {
 		if (calendarDAO.findById(calendarId).isPresent()) {
 			Calendar c = calendarDAO.findById(calendarId).get();
 			

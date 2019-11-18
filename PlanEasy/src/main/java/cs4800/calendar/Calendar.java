@@ -6,6 +6,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,9 +25,11 @@ import lombok.Setter;
 @Document(collection = "calendar")
 public class Calendar {
 
+	private static final Logger log = Logger.getLogger(Calendar.class.getName());
+
 	@Id
 	@Field(value = "calenderId")
-	private UUID calenderId;
+	private UUID calenderId = UUID.randomUUID();
 	/*
 	 * ints are used to store the month and year currently 
 	 * selected in the calendar
@@ -88,13 +91,13 @@ public class Calendar {
 		
 		if(month > 12 || month < 0) {
 			
-			System.err.println("Month out of bounds setting to January");
+			log.severe("Month out of bounds setting to January");
 			month = 1;
 		}
 		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
 				day < Month.of(month).length(LocalDate.of(year, month, day).isLeapYear())) {
 			
-			System.err.println("Day out of bounds setting to the first");
+			log.severe("Day out of bounds setting to the first");
 			day = 1;
 		}
 		
@@ -167,7 +170,7 @@ public class Calendar {
 		
 		if(monthNumber > 12 || monthNumber < 0) {
 			
-			System.err.println("Month out of bounds setting to January");
+			log.severe("Month out of bounds setting to January");
 			monthNumber = 1;
 		}
 		
@@ -256,7 +259,7 @@ public class Calendar {
 		if(day > Month.of(month).length(LocalDate.of(year, month, day).isLeapYear()) ||
 				day < 0) {
 			
-			System.err.println("Day out of bounds setting to the first");
+			log.severe("Day out of bounds setting to the first");
 			day = 1;
 		}
 		

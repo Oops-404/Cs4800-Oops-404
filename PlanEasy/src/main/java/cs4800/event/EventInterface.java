@@ -1,6 +1,7 @@
 package cs4800.event;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public interface EventInterface {
@@ -69,7 +70,7 @@ public interface EventInterface {
 	 * @param start - int[] start time  with [0] being hour,
 	 * [1] being minute, and [2] being second
 	 */
-	public void setStartTime(int[] start);
+	public void setStartTime(String start);
 	
 	
 	/**
@@ -78,7 +79,7 @@ public interface EventInterface {
 	 * @param end - int[] end time with [0] being hour,
 	 * [1] being minute, and [2] being second
 	 */
-	public void setEndTime(int[] end);
+	public void setEndTime(String end);
 	
 	/**
 	 * Gets the start date of the event
@@ -102,7 +103,7 @@ public interface EventInterface {
 	 * @return int[] start time  with [0] being hour,
 	 * 		   [1] being minute, and [2] being second
 	 */
-	public int[] getStartTime();
+	public LocalTime getStartTime();
 	
 	/**
 	 * Gets the end time of the event
@@ -110,7 +111,7 @@ public interface EventInterface {
 	 * @return int[] end time with [0] being hour,
 	 * 		   [1] being minute, and [2] being second
 	 */
-	public int[] getEndTime();
+	public LocalTime getEndTime();
 
 	/**
 	 * Gets category of the event
@@ -125,21 +126,6 @@ public interface EventInterface {
 	 * @param category - category of event
 	 */
 	void setCategory(String category);
-	
-	/**
-	 * Set the Id of the calendar the event should be 
-	 * associated with
-	 * 
-	 * @param calendarId
-	 */
-	void setCalendarId(String calendarId);
-	
-	/**
-	 * Returns the Id of the associated calendar
-	 * 
-	 * @return String Calendar Id
-	 */
-	String getCalendarId();
 
 	String DateTimeToString();
 

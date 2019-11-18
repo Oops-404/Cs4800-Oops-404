@@ -18,6 +18,13 @@ import cs4800.event.Event;
 public interface EventDAO extends MongoRepository<Event, UUID> {
 	
 	/**
+	 * Get all events sorted by start date ascending.
+	 * 
+	 * @return list of all events
+	 */
+	List<Event> findAllByOrderByStartDateAsc();
+	
+	/**
 	 * Get all events containing this string in the event name
 	 * 
 	 * @param name - part of event name
