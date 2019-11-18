@@ -52,6 +52,20 @@ public class CalendarServiceImpl implements CalendarService {
 			throw new MongoException("Record not found");
 		}
 	}
+	
+	@Override
+	public void removeEventFromCalendar(UUID calendarId, UUID eventId) {
+		if (calendarDAO.findById(calendarId).isPresent()) {
+			Calendar c = calendarDAO.findById(calendarId).get();
+			
+			c.removeEventFromCalendar(eventId);	
+			
+			calendarDAO.save(c);
+		}
+		else {
+			throw new MongoException("Record not found");
+		}
+	}
 
 	@Override
 	public Optional<Calendar> getCalendar(UUID calendarId) {

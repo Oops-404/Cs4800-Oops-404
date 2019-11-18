@@ -9,9 +9,9 @@ public interface EventInterface {
 	/**
 	 * Set unique event id
 	 * 
-	 * @param EventId - id of event
+	 * @param eventId - id of event
 	 */
-	void setEventId(UUID EventId);
+	void setEventId(UUID eventId);
 	
 	/**
 	 * Get unique event id
@@ -67,8 +67,7 @@ public interface EventInterface {
 	/**
 	 * Sets the start time for the event
 	 * 
-	 * @param start - int[] start time  with [0] being hour,
-	 * [1] being minute, and [2] being second
+	 * @param start - start time (i.e. 1:30 PM)
 	 */
 	public void setStartTime(String start);
 	
@@ -76,8 +75,7 @@ public interface EventInterface {
 	/**
 	 * Sets the end time for the event
 	 * 
-	 * @param end - int[] end time with [0] being hour,
-	 * [1] being minute, and [2] being second
+	 * @param end - end time (i.e. 4:00 PM)
 	 */
 	public void setEndTime(String end);
 	
@@ -100,16 +98,14 @@ public interface EventInterface {
 	/**
 	 * Gets the start time of the event
 	 * 
-	 * @return int[] start time  with [0] being hour,
-	 * 		   [1] being minute, and [2] being second
+	 * @return LocalTime start time of the event
 	 */
 	public LocalTime getStartTime();
 	
 	/**
 	 * Gets the end time of the event
 	 * 
-	 * @return int[] end time with [0] being hour,
-	 * 		   [1] being minute, and [2] being second
+	 * @return LocalTime end time of the event
 	 */
 	public LocalTime getEndTime();
 

@@ -53,10 +53,29 @@ public class UserServiceImpl implements UserService {
             throw new MongoException("Record not found");
         }
 	}
+	
+	@Override
+	public void deleteCalendarFromUser(UUID userId, UUID calendarId) {
+		if (userDAO.findById(userId).isPresent()) {
+			User u = userDAO.findById(userId).get();
+			
+			u.removeCalendar(calendarId);
+			
+			userDAO.save(u);
+        }
+        else {
+            throw new MongoException("Record not found");
+        }
+	}
 
 	@Override
 	public Optional<User> getUser(UUID userId) {
 		return userDAO.findById(userId);
+	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		return userDAO.findByEmail(email);
 	}
 	
 	@Override
@@ -65,12 +84,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void deleteUser(UUID userId) {
+		userDAO.deleteById(userId);
+	}
+	
+	@Override
 	public void deleteUserByEmail(String email) {
 		userDAO.deleteByEmail(email);
 	}
 
-	@Override
-	public User getUserByEmail(String email) {
-		return userDAO.findByEmail(email);
-	}
 }

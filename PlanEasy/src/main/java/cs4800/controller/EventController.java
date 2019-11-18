@@ -115,11 +115,11 @@ public class EventController {
 	 * @return list of events that match the query search
 	 */
 	@GetMapping("/startDate/{startDate}") 
-	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") String startDate) {
+	public List<Event> getEventByStartDate(@PathVariable(name = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate) {
 		log.info("Getting events with event start date: " + startDate);
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
-		return eventService.getEventsByStartDate(localStartDate);
+//		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		return eventService.getEventsByStartDate(startDate);
 	}
 	
 	/**
@@ -129,11 +129,11 @@ public class EventController {
 	 * @return list of events that match the query search
 	 */
 	@GetMapping("/startTime/{startTime}")	
-	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") @DateTimeFormat(pattern = "h:mm a") String startTime) {
+	public List<Event> getEventByStartTime(@PathVariable(name = "startTime") @DateTimeFormat(pattern = "h:mma") LocalTime startTime) {
 		log.info("Getting events with event start time: " + startTime);
-		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
-		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
-		return eventService.getEventsByStartTime(localStartTime);
+//		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
+//		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
+		return eventService.getEventsByStartTime(startTime);
 	}
 	
 	/**
@@ -166,7 +166,7 @@ public class EventController {
 	public List<Event> deleteEventIfEnded() {
 		LocalDate today = LocalDate.now();
 		log.info("Deleting events that ended before: " + today);
-		List<Event> toDelete = eventService.getEventsByEndDateBefore(today);
+		List<Event> toDelete = eventService.getEventsByEndDateLessThan(today);
 		for (int i=0; i<toDelete.size(); i++) {
 			UUID id = toDelete.get(i).getEventId();
 			log.info("Deleting event that has ended with event ID: " + id);

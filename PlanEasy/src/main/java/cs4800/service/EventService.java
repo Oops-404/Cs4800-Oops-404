@@ -97,5 +97,5 @@ public interface EventService {
 	 * @param endDate
 	 * @return list of events
 	 */
-	List<Event> getEventsByEndDateBefore(LocalDate endDate);
+	List<Event> getEventsByEndDateLessThan(LocalDate endDate);
 }

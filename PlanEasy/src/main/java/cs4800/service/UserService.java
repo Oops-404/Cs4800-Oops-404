@@ -27,6 +27,7 @@ public interface UserService {
 	
 	/**
 	 * Add a calendar to a user.
+	 * 
 	 * @param user
 	 * @param userId
 	 * @param calendarId
@@ -34,6 +35,14 @@ public interface UserService {
 	 */
 	User addCalendarToUser(User user, UUID userId, UUID calendarId);
 		
+	/**
+	 * Remove a calendar from a user.
+	 * 
+	 * @param userId
+	 * @param calendarId
+	 */
+	void deleteCalendarFromUser(UUID userId, UUID calendarId);
+	
 	/**
 	 * Get a user by user ID.
 	 * 
@@ -58,9 +67,18 @@ public interface UserService {
 	User getUserByEmail(String email);
 	
 	/**
+	 * Delete a user from the database by user ID.
+	 * 
+	 * @param userId
+	 */
+	void deleteUser(UUID userId);
+	
+	/**
 	 * Delete a user from the database by email.
 	 * 
 	 * @param email
 	 */
 	void deleteUserByEmail(String email);	
+	
+	
 }

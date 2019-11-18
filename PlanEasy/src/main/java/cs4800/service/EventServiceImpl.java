@@ -87,8 +87,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<Event> getEventsByEndDateBefore(LocalDate endDate) {
-		return eventDAO.findByEndDateBefore(endDate);
+	public List<Event> getEventsByEndDateLessThan(LocalDate endDate) {
+		return eventDAO.findByEndDateLessThan(endDate);
 	}
 	
 }

@@ -64,7 +64,7 @@ public class UserController {
 	 * @param calendarId
 	 * @return updated user
 	 */
-	@PatchMapping("/addCalendar/{userId}")
+	@PatchMapping("/addCalendar/{userId}/{calendarId}")
 	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
 		user.addCalendar(calendarId);
 		log.info("Adding calendar to user...");
@@ -107,6 +107,17 @@ public class UserController {
 	}
 	
 	/**
+	 * Delete a user by user ID.
+	 * 
+	 * @param userId
+	 */
+	@DeleteMapping("/delete/{userId}")
+	public void deleteUser(@PathVariable(name = "userId") UUID userId) {
+		log.info("Deleting user with user ID: " + userId);
+		userService.deleteUser(userId);;
+	}
+	
+	/**
 	 * Delete a user by email.
 	 * 
 	 * @param email
@@ -115,5 +126,18 @@ public class UserController {
 	public void deleteUser(@PathVariable(name = "userEmail") String email) {
 		log.info("Deleting user with email: " + email);
 		userService.deleteUserByEmail(email);
+	}
+	
+	/**
+	 * Delete a calendar from a user.
+	 * 
+	 * @param user
+	 * @param userId
+	 * @param calendarId
+	 */
+	@DeleteMapping("/deleteCalendar/{userId}/{calendarId}")
+	public void deleteCalendar(@PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
+		log.info("Deleting calendar from user with calendar ID: " + calendarId);
+		userService.deleteCalendarFromUser(userId, calendarId);
 	}
 }

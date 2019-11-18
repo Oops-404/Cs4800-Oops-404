@@ -399,4 +399,8 @@ public class Calendar {
 	public void addEventToCalendar(UUID eventId) {
 		eventsInCalendar.add(eventId);
 	}
+	
+	public void removeEventFromCalendar(UUID eventId) {
+		eventsInCalendar.remove(eventId);
+	}
 }

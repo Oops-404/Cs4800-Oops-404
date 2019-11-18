@@ -31,11 +31,11 @@ public class User implements UserInterface {
     
     // Name of the user
 	@Field(value = "name")
-    private String name = null;
+    private String name;
 	
 	// Users encrypted password
 	@Field(value = "password")
-	private String password = null;
+	private String password;
 	
 	// Users email
 	@Field(value = "email")
@@ -43,16 +43,13 @@ public class User implements UserInterface {
 
 	// If the account is active
 	@Field(value = "enabled")
-	private boolean enabled = true;
+	private boolean enabled;
 	
 	@DBRef
 	private Set<Role> roles;
 	
 	@Field(value = "calendars")
 	private List<UUID> calendarsForUser;
-
-	@Field(value = "calendarId")
-	private UUID calendarId;
 	
     /**
      * No args constructor
@@ -156,8 +153,15 @@ public class User implements UserInterface {
 	 * @param calendarId
 	 */
 	public void addCalendar(UUID calendarId) {
-		this.calendarId = calendarId;
-		calendarsForUser.add(this.calendarId);
+		calendarsForUser.add(calendarId);
+	}
+	
+	/**
+	 * Remove a calendar ID from the list for a user.
+	 * @param calendarId
+	 */
+	public void removeCalendar(UUID calendarId) {
+		calendarsForUser.remove(calendarId);
 	}
 	
 }

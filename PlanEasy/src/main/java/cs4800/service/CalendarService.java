@@ -37,6 +37,15 @@ public interface CalendarService {
 	Calendar addEventToCalendar(Calendar calendar, UUID calendarId, UUID eventId);
 	
 	/**
+	 * Remove an event from the calendar by ID.
+	 * 
+	 * @param calendar
+	 * @param calendarId
+	 * @param eventId
+	 */
+	void removeEventFromCalendar(UUID calendarId, UUID eventId);
+	
+	/**
 	 * Get a calendar by calendar ID.
 	 * 
 	 * @param calendarId
