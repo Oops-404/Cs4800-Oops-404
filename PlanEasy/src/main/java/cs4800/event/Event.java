@@ -500,27 +500,7 @@ public class Event implements EventInterface {
 				"/" + this.endYear);
 		
 		return endDate;
-	}
-	
-	@Override
-	public String toString() {
-		return "Event { "
-				+ "id=" + eventId + '\''
-				+ ", name=" + name + '\''
-				+ ", startDay=" + startDay + '\''
-				+ ", startMonth=" + startMonth + '\''
-				+ ", startYear=" + startYear + '\''
-				+ ", location=" + location + '\''
-				+ ", endDay=" + endDay + '\''
-				+ ", endMonth=" + endMonth + '\''
-				+ ", endYear=" + endYear + '\''
-				+ ", startHour=" + startHour + '\''
-				+ ", startMinute=" + startMinute + '\''
-				+ ", endHour=" + endHour + '\''
-				+ ", endMinute=" + endMinute + '\''
-				+ ", category=" + category + '\''
-				+ " }";
-	}
+	} 
 	
 //	/*
 //	 * Puts each component of the start time into a string

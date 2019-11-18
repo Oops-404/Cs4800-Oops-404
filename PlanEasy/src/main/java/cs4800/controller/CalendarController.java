@@ -35,7 +35,7 @@ public class CalendarController {
 	 * Create new calendar.
 	 * 
 	 * @param calendar
-	 * @return the new calendar
+	 * @return new calendar
 	 */
 	@PostMapping("/save")
 	public Calendar save(@RequestBody Calendar calendar) {
@@ -48,13 +48,28 @@ public class CalendarController {
 	 * 
 	 * @param calendar
 	 * @param calendarId
-	 * @return the updated calendar
+	 * @return updated calendar
 	 */
 	@PutMapping("/save/{calendarId}")
 	public Calendar update(@RequestBody Calendar calendar, @PathVariable(name = "calendarId") UUID calendarId) {
 		calendar.setCalendarId(calendarId);
 		log.info("Updating calendar info...");
 		return calendarService.updateCalendar(calendar, calendarId);
+	}
+	
+	/**
+	 * Add event to the calendar.
+	 * 
+	 * @param calendar
+	 * @param calendarId
+	 * @param eventId
+	 * @return updated calendar
+	 */
+	@PutMapping("/save/{calendarId}/{eventId}")
+	public Calendar addEvent(@RequestBody Calendar calendar, @PathVariable(name = "calendarId") UUID calendarId, @PathVariable(name = "eventId") UUID eventId) {
+		calendar.addEventToCalendar(eventId);
+		log.info("Adding event to calendar...");
+		return calendarService.addEventToCalendar(calendarId, eventId);
 	}
 	
 	/**

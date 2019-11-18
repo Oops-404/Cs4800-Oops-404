@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.MongoException;
+
 import cs4800.dao.UserDAO;
 import cs4800.user.User;
 
@@ -22,7 +24,33 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user, UUID userId) {
-		return userDAO.save(user);
+		if (userDAO.findById(userId).isPresent()) {
+			User u = userDAO.findById(userId).get();
+			
+			u.setEmail(user.getEmail());
+			u.setPassword(user.getPassword());
+			u.setName(user.getName());
+			u.setRoles(user.getRoles());
+			
+			return userDAO.save(u);
+        }
+        else {
+            throw new MongoException("Record not found");
+        }
+	}
+	
+	@Override
+	public User addCalendarToUser(UUID userId, UUID calendarId) {
+		if (userDAO.findById(userId).isPresent()) {
+			User u = userDAO.findById(userId).get();
+			
+			u.addCalendar(calendarId);
+			
+			return userDAO.save(u);
+        }
+        else {
+            throw new MongoException("Record not found");
+        }
 	}
 
 	@Override

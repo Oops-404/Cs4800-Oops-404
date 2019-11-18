@@ -1,5 +1,6 @@
 package cs4800.user;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -45,6 +46,9 @@ public class User implements UserInterface {
 	
 	@DBRef
 	private Set<Role> roles;
+	
+	@Field(value = "calendars")
+	private List<UUID> calendarsForUser;
 
     /**
      * No args constructor
@@ -128,14 +132,20 @@ public class User implements UserInterface {
 		this.email = email;
 	}
 	
-	@Override
-	public String toString() {
-		return "User { "
-				+ "id=" + userId + '\'' 
-				+ ", email=" + email + '\''
-				+ ", password=" + password + '\''
-				+ " }";
-				
+	/**
+	 * Get list of calendar IDs for a user.
+	 * @return
+	 */
+	public List<UUID> getCalendarsForUser() {
+		return calendarsForUser;
+	}
+	
+	/**
+	 * Add a calendar ID to the list for a user.
+	 * @param calendarId
+	 */
+	public void addCalendar(UUID calendarId) {
+		calendarsForUser.add(calendarId);
 	}
 	
 }

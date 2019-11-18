@@ -39,27 +39,27 @@ public class WebScrapeImpl implements WebScrape{
         	
         	Event event = new Event(name, date, date, startTime, endTime, location, "ASI");
         	
-        	service.save(event);
+        	service.addEvent(event);
         	
 		}
-        	System.out.println(service.getAllEvent());
-        	return service.getAllEvent();
+        	System.out.println(service.getAllEvents());
+        	return service.getAllEvents();
 	} 
 	
 	private String getStartTime(String time) {
 
 		if(time.contentEquals("All day event "))
-			return "7:00 am";
+			return "7:00 AM";
 		else
-			return time.substring(0, time.indexOf(" - "));
+			return time.substring(0, time.indexOf(" - ") - 2) + time.substring(time.indexOf(" - ") - 2, time.indexOf(" - ")).toUpperCase();
 	}
 	
 	private String getEndTime(String time) {
 		
 		if(time.contentEquals("All day event "))
-			return "4:00 pm";
+			return "4:00 PM";
 		else
-		return time.substring(time.indexOf(" - ") + 3, time.length());
+			return time.substring(time.indexOf(" - ") + 3, time.length() - 3) + time.substring(time.length() - 3, time.length() - 1).toUpperCase();
 	}
 	
 }

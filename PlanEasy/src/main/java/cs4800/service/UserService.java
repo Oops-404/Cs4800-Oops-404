@@ -11,7 +11,7 @@ public interface UserService {
 	 * Add user to the database.
 	 * 
 	 * @param user
-	 * @return the added user
+	 * @return new user
 	 */
 	User addUser(User user);
 	
@@ -20,9 +20,17 @@ public interface UserService {
 	 * 
 	 * @param user
 	 * @param userId
-	 * @return the updated user
+	 * @return updated user
 	 */
 	User updateUser(User user, UUID userId);
+	
+	/**
+	 * Add a calendar to a user.
+	 * @param userId
+	 * @param calendarId
+	 * @return updated user
+	 */
+	User addCalendarToUser(UUID userId, UUID calendarId);
 	
 	/**
 	 * Get all users in the database.

@@ -12,7 +12,7 @@ public interface CalendarService {
 	 * Add a new calendar to the database.
 	 * 
 	 * @param calender
-	 * @return calendar that was added
+	 * @return new calendar
 	 */
 	Calendar addCalendar(Calendar calender);
 	
@@ -21,9 +21,20 @@ public interface CalendarService {
 	 * 
 	 * @param calendar
 	 * @param calendarId
-	 * @return calendar that was updated
+	 * @return updated calendar
 	 */
 	Calendar updateCalendar(Calendar calendar, UUID calendarId);
+	
+	/**
+	 * Add an event to the calendar by ID.
+	 * 
+	 * @param calendar
+	 * @param calendarId
+	 * @param event
+	 * @param eventId
+	 * @return updated calendar
+	 */
+	Calendar addEventToCalendar(UUID calendarId, UUID eventId);
 	
 	/**
 	 * Get a calendar by calendar ID.

@@ -38,6 +38,20 @@ public class CalendarServiceImpl implements CalendarService {
 			throw new MongoException("Record not found");
 		}
 	}
+	
+	@Override
+	public Calendar addEventToCalendar(UUID calendarId, UUID eventId) {
+		if (calendarDAO.findById(calendarId).isPresent()) {
+			Calendar c = calendarDAO.findById(calendarId).get();
+			
+			c.addEventToCalendar(eventId);
+			
+			return calendarDAO.save(c);
+		}
+		else {
+			throw new MongoException("Record not found");
+		}
+	}
 
 	@Override
 	public Optional<Calendar> getCalendar(UUID calendarId) {
