@@ -10,6 +10,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /*
  * This is an implementation of {@link EventInterface}
  * Event class that will hold all of the
@@ -39,6 +41,7 @@ public class Event implements EventInterface {
 	
 	// Start date as a string for easier output
 	@Field(value = "startDate")
+	@JsonFormat(pattern = "EEEE, MMM dd, yyyy")
 	private LocalDate startDate = null;
 	
 	//End date split into its components for easier manipulation
@@ -51,6 +54,8 @@ public class Event implements EventInterface {
 	
 	//End date as a string for easier output
 	@Field(value = "endDate")
+	@JsonFormat(pattern = "EEEE, MMM dd, yyyy")
+
 	private LocalDate endDate = null;
 	
 	//Start time split into its components for easier manipulation
@@ -61,6 +66,7 @@ public class Event implements EventInterface {
 	
 	//Start time as a string for easier output
 	@Field(value = "startTime")
+	@JsonFormat(pattern = "h:mm a")
 	private LocalTime startTime = null;
 	
 	//End time split into its components for easier manipulation
@@ -71,6 +77,7 @@ public class Event implements EventInterface {
 	
 	//End time as a string for easier output
 	@Field(value = "endTime")
+	@JsonFormat(pattern = "h:mm a")
 	private LocalTime endTime = null;
 	
 	@Field(value = "category")
@@ -343,14 +350,6 @@ public class Event implements EventInterface {
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
 
-	}
-	
-	@Override
-	public String DateTimeToString() {
-		String DateAndTime = ("Date: " + startDate + "   Time: " + startTime + "\n" +
-				"Date: " + endDate + "   Time: " + endTime);
-		
-		return DateAndTime;
 	}
 
 	@Override

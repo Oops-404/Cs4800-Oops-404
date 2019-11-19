@@ -123,7 +123,4 @@ public interface EventInterface {
 	 */
 	void setCategory(String category);
 
-	String DateTimeToString();
-
-
 }
