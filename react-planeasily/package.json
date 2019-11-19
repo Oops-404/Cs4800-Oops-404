@@ -22,11 +22,13 @@
     "prop-types": "15.7.2",
     "react": "16.9.0",
     "react-big-calendar": "^0.23.0",
+    "react-bootstrap": "^1.0.0-beta.15",
     "react-chartist": "0.13.3",
     "react-dom": "16.9.0",
     "react-google-maps": "9.4.5",
     "react-router-dom": "5.0.1",
     "react-scripts": "3.1.0",
+    "react-select": "^3.0.8",
     "react-swipeable-views": "0.13.3"
   },
   "scripts": {
