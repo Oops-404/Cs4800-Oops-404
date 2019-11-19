@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cs4800.service.UserService;
@@ -22,6 +24,7 @@ import cs4800.user.User;
  * UserController is responsible for all REST API operations with User data
  * 
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -50,7 +53,7 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@PatchMapping("/save/{userId}")
+	@PatchMapping("/update")
 	public User update(@RequestBody User user, @PathVariable(name = "userId") UUID userId) {
 		user.setUserId(userId);
 		log.info("Updating user info...");
@@ -64,8 +67,8 @@ public class UserController {
 	 * @param calendarId
 	 * @return updated user
 	 */
-	@PatchMapping("/addCalendar/{userId}/{calendarId}")
-	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
+	@PatchMapping("/addCalendar/{userId}")
+	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
 		user.addCalendar(calendarId);
 		log.info("Adding calendar to user...");
 		return userService.addCalendarToUser(user, userId, calendarId);
@@ -76,7 +79,7 @@ public class UserController {
 	 * 
 	 * @return list of all users
 	 */
-	@GetMapping("/all")
+	@GetMapping("/")
 	public List<User> getAllUsers() {
 		log.info("Getting all users...");
 		return userService.getAllUsers();
@@ -88,8 +91,8 @@ public class UserController {
 	 * @param userId
 	 * @return specific user
 	 */
-	@GetMapping("/{userId}")
-	public Optional<User> getUser(@PathVariable(name = "userId") UUID userId) {
+	@GetMapping("/id")
+	public Optional<User> getUser(@RequestParam(name = "userId") UUID userId) {
 		log.info("Getting user with user ID: " + userId);
 		return userService.getUser(userId);
 	}
@@ -100,8 +103,8 @@ public class UserController {
 	 * @param email
 	 * @return specific user
 	 */
-	@GetMapping("/{userEmail}")
-	public User getUserByEmail(@PathVariable(name = "userEmail") String email) {
+	@GetMapping("/email")
+	public User getUserByEmail(@RequestParam(name = "email") String email) {
 		log.info("Getting user with email: " + email);
 		return userService.getUserByEmail(email);
 	}
@@ -111,8 +114,8 @@ public class UserController {
 	 * 
 	 * @param userId
 	 */
-	@DeleteMapping("/delete/{userId}")
-	public void deleteUser(@PathVariable(name = "userId") UUID userId) {
+	@DeleteMapping("/delete/id")
+	public void deleteUser(@RequestParam(name = "userId") UUID userId) {
 		log.info("Deleting user with user ID: " + userId);
 		userService.deleteUser(userId);;
 	}
@@ -122,8 +125,8 @@ public class UserController {
 	 * 
 	 * @param email
 	 */
-	@DeleteMapping("/delete/{userEmail}")
-	public void deleteUser(@PathVariable(name = "userEmail") String email) {
+	@DeleteMapping("/delete/email")
+	public void deleteUser(@RequestParam(name = "email") String email) {
 		log.info("Deleting user with email: " + email);
 		userService.deleteUserByEmail(email);
 	}
@@ -135,8 +138,8 @@ public class UserController {
 	 * @param userId
 	 * @param calendarId
 	 */
-	@DeleteMapping("/deleteCalendar/{userId}/{calendarId}")
-	public void deleteCalendar(@PathVariable(name = "userId") UUID userId, @PathVariable(name = "calendarId") UUID calendarId) {
+	@DeleteMapping("/deleteCalendar/{userId}")
+	public void deleteCalendar(@PathVariable(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
 		log.info("Deleting calendar from user with calendar ID: " + calendarId);
 		userService.deleteCalendarFromUser(userId, calendarId);
 	}

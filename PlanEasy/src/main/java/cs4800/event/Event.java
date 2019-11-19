@@ -10,16 +10,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /*
  * This is an implementation of {@link EventInterface}
  * Event class that will hold all of the
  * information of an event
  */
-@Getter
-@Setter
 @Document(collection = "event")
 public class Event implements EventInterface {
 	
@@ -66,7 +61,7 @@ public class Event implements EventInterface {
 	
 	//Start time as a string for easier output
 	@Field(value = "startTime")
-	private String startTime = null;
+	private LocalTime startTime = null;
 	
 	//End time split into its components for easier manipulation
 	@Field(value = "endHour")
@@ -76,7 +71,7 @@ public class Event implements EventInterface {
 	
 	//End time as a string for easier output
 	@Field(value = "endTime")
-	private String endTime = null;
+	private LocalTime endTime = null;
 	
 	@Field(value = "category")
 	private String category = null;
@@ -300,8 +295,8 @@ public class Event implements EventInterface {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
 		LocalTime localEndTime = LocalTime.parse(end, formatTime);
 		
-		this.startHour = localEndTime.getHour();
-		this.startMinute = localEndTime.getMinute();
+		this.endHour = localEndTime.getHour();
+		this.endMinute = localEndTime.getMinute();
 	}
 	
 	@Override

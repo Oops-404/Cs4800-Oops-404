@@ -11,16 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import cs4800.security.Role;
-import lombok.Getter;
-import lombok.Setter;
 
 /*
  * This is an implementation of {@link UserInterface}
  * User class that will hold all of the
  * information of a user
  */
-@Getter
-@Setter
 @Document (collection = "user")
 public class User implements UserInterface {
 

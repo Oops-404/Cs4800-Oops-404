@@ -14,16 +14,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import cs4800.event.Event;
 import cs4800.user.User;
-import lombok.Getter;
-import lombok.Setter;
-
 
 /**
  * Calendar class that can be used to create 
  * an arrayList to represent months of a year
  */
-@Getter
-@Setter
 @Document(collection = "calendar")
 public class Calendar {
 
@@ -400,6 +395,10 @@ public class Calendar {
 		eventsInCalendar.add(eventId);
 	}
 	
+	/**
+	 * Remove an event from the list in a calendar.
+	 * @param eventId
+	 */
 	public void removeEventFromCalendar(UUID eventId) {
 		eventsInCalendar.remove(eventId);
 	}

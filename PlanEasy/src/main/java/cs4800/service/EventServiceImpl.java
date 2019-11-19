@@ -63,32 +63,32 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> getEventsByName(String name) {
-		return eventDAO.findByNameContainingIgnoreCase(name);
+		return eventDAO.findAllByLocationContainingIgnoreCase(name);
 	}
 
 	@Override
 	public List<Event> getEventsByLocation(String location) {
-		return eventDAO.findByLocationContainingIgnoreCase(location);
+		return eventDAO.findAllByLocationContainingIgnoreCase(location);
 	}
 
 	@Override
 	public List<Event> getEventsByStartDate(LocalDate startDate) {
-		return eventDAO.findByStartDateGreaterThanEqual(startDate);
+		return eventDAO.findAllByStartDateGreaterThanEqual(startDate);
 	}
 
 	@Override
 	public List<Event> getEventsByStartTime(LocalTime startTime) {
-		return eventDAO.findByStartTimeGreaterThanEqual(startTime);
+		return eventDAO.findAllByStartTimeGreaterThanEqual(startTime);
 	}
 
 	@Override
 	public List<Event> getEventsByCategory(String category) {
-		return eventDAO.findByCategoryIgnoreCase(category);
+		return eventDAO.findAllByCategoryIgnoreCase(category);
 	}
 
 	@Override
-	public List<Event> getEventsByEndDateLessThan(LocalDate endDate) {
-		return eventDAO.findByEndDateLessThan(endDate);
+	public List<Event> getEventsThatEnded(LocalDate endDate) {
+		return eventDAO.findAllByEndDateBefore(endDate);
 	}
 	
 }
