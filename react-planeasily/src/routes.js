@@ -35,8 +35,8 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
-import EventList from "views/EventList/EventList";
-import Calendar from "views/Calendar/Calendar";
+import EventList from "views/EventList/EventList.js";
+import Calendar from "views/Calendar/Calendar.js";
 
 const dashboardRoutes = [
   {
