@@ -66,9 +66,7 @@ public class WebScrapeImpl implements WebScrape {
 	}
 	
 	private boolean eventAlreadyExists(Event event) {
-		if (service.getEventsByName(event.getName()).contains(event) 
-				|| service.getEventsByStartDate(event.getStartDate()).contains(event) 
-				|| service.getEventsByStartTime(event.getStartTime()).contains(event))
+		if (service.getAllEvents().contains(event))
 			return true;
 		else
 			return false;
