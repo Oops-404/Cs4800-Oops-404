@@ -40,7 +40,8 @@ public class WebScrapeImpl implements WebScrape {
         	
         	Event event = new Event(name, date, date, startTime, endTime, location, "ASI");
         	
-        	service.addEvent(event);
+        	if (!eventAlreadyExists(event))
+        		service.addEvent(event);
         	
 		}
         	log.info("Webscraping events into database...");
@@ -62,6 +63,15 @@ public class WebScrapeImpl implements WebScrape {
 			return "4:00 PM";
 		else
 			return time.substring(time.indexOf(" - ") + 3, time.length() - 3) + time.substring(time.length() - 3, time.length() - 1).toUpperCase();
+	}
+	
+	private boolean eventAlreadyExists(Event event) {
+		if (service.getEventsByName(event.getName()).contains(event) 
+				&& service.getEventsByStartDate(event.getStartDate()).contains(event) 
+				&& service.getEventsByStartTime(event.getStartTime()).contains(event))
+			return true;
+		else
+			return false;
 	}
 	
 }
