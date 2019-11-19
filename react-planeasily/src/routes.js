@@ -39,14 +39,14 @@ import EventList from "views/EventList/EventList.js";
 import Calendar from "views/Calendar/Calendar.js";
 
 const dashboardRoutes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
-    icon: Dashboard,
-    component: DashboardPage,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   rtlName: "لوحة القيادة",
+  //   icon: Dashboard,
+  //   component: DashboardPage,
+  //   layout: "/admin"
+  // },
   {
     path: "/user",
     name: "User Profile",

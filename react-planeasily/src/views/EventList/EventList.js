@@ -46,50 +46,57 @@ const useStyles = makeStyles(styles);
 export default function EventList() {
   const classes = useStyles();
   const [hasError, setErrors] = useState(false);
-  const [events, setEvents] = useState({});
-  let headers = new Headers();
+  const [events, setEvents] = useState([]);
+  const abortController = new AbortController();
+  const signal1 = abortController.signal;
 
-  // headers.append('Content-Type', 'application/json');
-  // headers.append('Accept', 'application/json');
-  // headers.append('Authorization', 'Basic ' + base64.encode(username + ":" +  password));
-  // headers.append('Origin','http://localhost:8080');
 
-  async function fetchData() {
-    const res = await fetch("/events/",);
-    res
-      .json()
-      .then(res => setEvents(res))
-      .catch(err => setErrors(err));
-  }
 
   useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("/events/", { signal: signal1 });
+      res
+        .json()
+        .then(res => setEvents(res))
+        .catch(err => setErrors(err));
+        
+    };
     fetchData();
-  });
-  
+
+    //cancel subscription by abort
+    return function cleanup(){
+      abortController.abort()
+    }
+  }, []);
+
+  const objs = JSON.parse(JSON.stringify(events));
+  var eventList = objs.map(function (e) {
+    return (
+      <GridItem xs={12} sm={12} md={6} key={e.eventId}>
+        <Card>
+          <CardHeader color="success">
+            <h4 className={classes.cardTitle}>{e.name}</h4>
+            <p>{e.location}</p>
+          </CardHeader>
+          <CardBody>
+            <p>Start: {e.startDate}: {e.startTime}
+              <br />
+              End: {e.endDate}: {e.endTime}
+            </p>
+            <Button color="success">Add Event</Button>
+          </CardBody>
+        </Card>
+      </GridItem>
+    );
+  })
+
   return (
     <div>
-    <GridContainer>
-    <GridItem xs={12} sm={12} md={6}>
-      <Card>
-        <CardHeader color="primary">
-          <h4 className={classes.cardTitle}>Full header coloured</h4>
-          <p>Category subtitle</p>
-        </CardHeader>
-        <CardBody>
-          <p>The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to "Naviglio" where you can enjoy the main night
-          life in Barcelona...
-          </p>
-          <Button color="primary">More Detail</Button>
-        </CardBody>
-      </Card>
-    </GridItem>
-    </GridContainer>
-    <div>
-    <span>{JSON.stringify(events)}</span>
-    <hr />
-    <span>Has error: {JSON.stringify(hasError)}</span>
-  </div>
-  </div>
+      <div>
+        <GridContainer>
+          {eventList}
+        </GridContainer>
+      </div>
+    </div>
   );
 }
