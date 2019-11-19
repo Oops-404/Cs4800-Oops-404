@@ -1,0 +1,23 @@
+{
+    "configurations": [
+
+        {
+            "type": "java",
+            "name": "Spring Boot-App<PlanEasy>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "cs4800.App",
+            "projectName": "PlanEasy",
+            "args": ""
+        },
+
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
