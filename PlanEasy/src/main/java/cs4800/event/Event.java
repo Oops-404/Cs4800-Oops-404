@@ -149,10 +149,12 @@ public class Event implements EventInterface {
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
+		this.startDate = localStartDate;
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
+		this.endDate = localEndDate;
 		this.endYear = localEndDate.getYear();
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
@@ -180,10 +182,12 @@ public class Event implements EventInterface {
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
+		this.startDate = localStartDate;
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
+		this.endDate = localEndDate;
 		this.endYear = localEndDate.getYear();
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
@@ -192,9 +196,11 @@ public class Event implements EventInterface {
 		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
 		LocalTime localEndTime = LocalTime.parse(endTime, formatTime);
 		
+		this.startTime = localStartTime;
 		this.startHour = localStartTime.getHour();
 		this.startMinute = localStartTime.getMinute();
 		
+		this.endTime = localEndTime;
 		this.endHour = localEndTime.getHour();
 		this.endMinute = localEndTime.getMinute();
 		
@@ -220,10 +226,12 @@ public class Event implements EventInterface {
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
+		this.startDate = localStartDate;
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
+		this.endDate = localEndDate;
 		this.endYear = localEndDate.getYear();
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
@@ -232,9 +240,11 @@ public class Event implements EventInterface {
 		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
 		LocalTime localEndTime = LocalTime.parse(endTime, formatTime);
 		
+		this.startTime = localStartTime;
 		this.startHour = localStartTime.getHour();
 		this.startMinute = localStartTime.getMinute();
 		
+		this.endTime = localEndTime;
 		this.endHour = localEndTime.getHour();
 		this.endMinute = localEndTime.getMinute();
 
@@ -274,19 +284,19 @@ public class Event implements EventInterface {
 		
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
 		LocalTime localStartTime = LocalTime.parse(start, formatTime);
-		
+		this.startTime = localStartTime;
 		this.startHour = localStartTime.getHour();
 		this.startMinute = localStartTime.getMinute();
 	}
 
 	@Override
 	public LocalTime getStartTime() {
-		return LocalTime.of(startHour, startMinute);
+		return startTime;
 	}
 
 	@Override
 	public LocalTime getEndTime() {
-		return LocalTime.of(endHour, endMinute);
+		return endTime;
 	}	
 	
 	@Override
@@ -294,17 +304,14 @@ public class Event implements EventInterface {
 		
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
 		LocalTime localEndTime = LocalTime.parse(end, formatTime);
-		
+		this.endTime = localEndTime;
 		this.endHour = localEndTime.getHour();
 		this.endMinute = localEndTime.getMinute();
 	}
 	
 	@Override
 	public LocalDate getStartDate() {
-
-		LocalDate date = LocalDate.of(startYear, startMonth, startDay);
-		
-		return date;
+		return startDate;
 	}
 	
 	@Override
@@ -322,10 +329,7 @@ public class Event implements EventInterface {
 	
 	@Override
 	public LocalDate getEndDate() {
-
-		LocalDate date = LocalDate.of(endYear, endMonth, endDay);
-		
-		return date;
+		return endDate;
 	}
 	
 	@Override
