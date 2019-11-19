@@ -30,7 +30,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param name - part of event name
 	 * @return list of events
 	 */
-	List<Event> findByNameContainingIgnoreCase(String name);
+	List<Event> findByNameContainingIgnoreCaseOrderByStartDateAsc(String name);
 	
 	/**
 	 * Get all events containing this string in the event location
@@ -38,7 +38,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param location - part of event location
 	 * @return list of events
 	 */
-	List<Event> findByLocationContainingIgnoreCase(String location);
+	List<Event> findByLocationContainingIgnoreCaseOrderByStartDateAsc(String location);
 	
 	/**
 	 * Get all events that start on this date or later
@@ -46,7 +46,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param startDate - starting date of event
 	 * @return list of events
 	 */
-	List<Event> findByStartDateGreaterThanEqual(LocalDate startDate);
+	List<Event> findByStartDateGreaterThanEqualOrderByStartDateAsc(LocalDate startDate);
 	
 	/**
 	 * Get all events that start at this time or later
@@ -54,7 +54,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param startTime - starting time of event
 	 * @return list of events
 	 */
-	List<Event> findByStartTimeGreaterThanEqual(LocalTime startTime);
+	List<Event> findByStartTimeGreaterThanEqualOrderByStartTimeAsc(LocalTime startTime);
 	
 	/**
 	 * Get all events that start at this time or later
@@ -62,7 +62,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param category - starting time of event
 	 * @return list of events
 	 */
-	List<Event> findByCategoryIgnoreCase(String category);
+	List<Event> findByCategoryIgnoreCaseOrderByStartDateAsc(String category);
 	
 	/**
 	 * Get all events that ended before this date 

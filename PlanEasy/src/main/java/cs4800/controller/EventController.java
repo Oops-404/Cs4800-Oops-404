@@ -128,13 +128,13 @@ public class EventController {
 	/**
 	 * Get all events that start at this time.
 	 * 
-	 * @param startTime - starting time of event (i.e. 4:00 PM)
+	 * @param startTime - starting time of event (i.e. 4:00PM)
 	 * @return list of events that match the query search
 	 */
 	@GetMapping("/startTime")	
 	public List<Event> getEventByStartTime(@RequestParam(name = "startTime") String startTime) {
 		log.info("Getting events with event start time: " + startTime);
-		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
 		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
 		return eventService.getEventsByStartTime(localStartTime);
 	}
