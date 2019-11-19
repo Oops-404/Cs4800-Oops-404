@@ -2,6 +2,7 @@ package cs4800.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -78,6 +79,34 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> getEventsByStartTime(LocalTime startTime) {
+		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+	}
+	
+	@Override
+	public List<Event> getEventsByStartTimeMorning() {
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		LocalTime startTime = LocalTime.parse("5:00 AM", formatTime);
+		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+	}
+	
+	@Override
+	public List<Event> getEventsByStartTimeAfternoon() {
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		LocalTime startTime = LocalTime.parse("12:00 PM", formatTime);		
+		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+	}
+	
+	@Override
+	public List<Event> getEventsByStartTimeEvening() {
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		LocalTime startTime = LocalTime.parse("5:00 PM", formatTime);		
+		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+	}
+
+	@Override
+	public List<Event> getEventsByStartTimeNight() {
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		LocalTime startTime = LocalTime.parse("8:00 PM", formatTime);		
 		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
 	}
 

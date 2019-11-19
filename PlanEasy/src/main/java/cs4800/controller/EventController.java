@@ -9,12 +9,10 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -137,6 +135,30 @@ public class EventController {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mma");
 		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
 		return eventService.getEventsByStartTime(localStartTime);
+	}
+	
+	@GetMapping("/startTime/morning")
+	public List<Event> getEventsMorning() {
+		log.info("Getting events that start in the morning...");
+		return eventService.getEventsByStartTimeMorning();
+	}
+	
+	@GetMapping("/startTime/afternoon")
+	public List<Event> getEventsAfternoon() {
+		log.info("Getting events that start in the afternoon...");
+		return eventService.getEventsByStartTimeAfternoon();
+	}
+	
+	@GetMapping("/startTime/evening")
+	public List<Event> getEventsEvening() {
+		log.info("Getting events that start in the evening...");
+		return eventService.getEventsByStartTimeEvening();
+	}
+	
+	@GetMapping("/startTime/night")
+	public List<Event> getEventsNight() {
+		log.info("Getting events that start at night...");
+		return eventService.getEventsByStartTimeNight();
 	}
 	
 	/**

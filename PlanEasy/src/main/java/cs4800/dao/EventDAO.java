@@ -55,7 +55,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @return list of events
 	 */
 	List<Event> findByStartTimeGreaterThanEqualOrderByStartTimeAsc(LocalTime startTime);
-	
+		
 	/**
 	 * Get all events that start at this time or later
 	 * 
