@@ -123,4 +123,8 @@ public interface EventInterface {
 	 */
 	void setCategory(String category);
 
+	String getDescription();
+
+	void setDescription(String description);
+
 }

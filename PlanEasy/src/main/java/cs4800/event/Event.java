@@ -83,6 +83,9 @@ public class Event implements EventInterface {
 	@Field(value = "category")
 	private String category = null;
 	
+	@Field(value = "description")
+	private String description = null;
+	
 	/**
 	 * No args constructor
 	 * 
@@ -96,17 +99,6 @@ public class Event implements EventInterface {
 	 */
 	public Event(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param name - name of event
-	 * @param category - category of the event
-	 */
-	public Event(String name, String category) {
-		this.name = name;
-		this.category = category;
 	}
 	
 	/**
@@ -138,6 +130,38 @@ public class Event implements EventInterface {
 		
 		this.location = location;
 	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
+	 * @param location - location of event
+	 */
+	public Event(String name, String startDate, String endDate, String location, String description) {
+		
+		this.name = name;
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
+		
+		this.compileStartDate();
+		this.compileEndDate();
+		
+		this.location = location;
+		
+		this.description = description;
+	}
 	
 	/**
 	 * Constructor
@@ -148,7 +172,7 @@ public class Event implements EventInterface {
 	 * @param location - location of event
 	 * @param category - category of the event
 	 */
-	public Event(String name, String startDate, String endDate, String location, String category) {
+	public Event(String name, String startDate, String endDate, String location, String category, String description) {
 		
 		this.name = name;
 		
@@ -169,49 +193,8 @@ public class Event implements EventInterface {
 		this.location = location;
 		
 		this.category = category;
-	}
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param name - name of event
-	 * @param startDate - start date of event (i.e. March 23, 2020)
-	 * @param endDate - end date of event (i.e. November 1, 2019)
-	 * @param startTime - start time of event (i.e. 5:00 PM)
-	 * @param endTime - end time of event (i.e. 10:30 AM)
-	 * @param location - location of event
-	 */
-	public Event(String name, String startDate, String endDate, String startTime, String endTime, String location) {
 		
-		this.name = name;
-				DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
-
-		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
-		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
-		
-		this.startDate = localStartDate;
-		this.startYear = localStartDate.getYear();
-		this.startMonth = localStartDate.getMonth();
-		this.startDay = localStartDate.getDayOfMonth();
-		
-		this.endDate = localEndDate;
-		this.endYear = localEndDate.getYear();
-		this.endMonth = localEndDate.getMonth();
-		this.endDay = localEndDate.getDayOfMonth();
-		
-		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
-		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
-		LocalTime localEndTime = LocalTime.parse(endTime, formatTime);
-		
-		this.startTime = localStartTime;
-		this.startHour = localStartTime.getHour();
-		this.startMinute = localStartTime.getMinute();
-		
-		this.endTime = localEndTime;
-		this.endHour = localEndTime.getHour();
-		this.endMinute = localEndTime.getMinute();
-		
-		this.location = location;
+		this.description = description;
 	}
 	
 	/**
@@ -258,6 +241,54 @@ public class Event implements EventInterface {
 		this.location = location;
 		
 		this.category = category;
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param name - name of event
+	 * @param startDate - start date of event (i.e. March 23, 2020)
+	 * @param endDate - end date of event (i.e. November 1, 2019)
+	 * @param startTime - start time of event (i.e. 5:00 PM)
+	 * @param endTime - end time of event (i.e. 10:30 AM)
+	 * @param location - location of event
+	 * @param category - category of the event
+	 */
+	public Event(String name, String startDate, String endDate, String startTime, String endTime, String location, String category, String description) {
+		
+		this.name = name;
+		
+		DateTimeFormatter formatDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
+		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
+		
+		this.startDate = localStartDate;
+		this.startYear = localStartDate.getYear();
+		this.startMonth = localStartDate.getMonth();
+		this.startDay = localStartDate.getDayOfMonth();
+		
+		this.endDate = localEndDate;
+		this.endYear = localEndDate.getYear();
+		this.endMonth = localEndDate.getMonth();
+		this.endDay = localEndDate.getDayOfMonth();
+		
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
+		LocalTime localStartTime = LocalTime.parse(startTime, formatTime);
+		LocalTime localEndTime = LocalTime.parse(endTime, formatTime);
+		
+		this.startTime = localStartTime;
+		this.startHour = localStartTime.getHour();
+		this.startMinute = localStartTime.getMinute();
+		
+		this.endTime = localEndTime;
+		this.endHour = localEndTime.getHour();
+		this.endMinute = localEndTime.getMinute();
+
+		this.location = location;
+		
+		this.category = category;
+		
+		this.description = description;
 	}
 			
 	@Override
@@ -370,6 +401,16 @@ public class Event implements EventInterface {
 	@Override
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	@Override
+	public String getDescription() {
+		return description;
+	}
+	
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	/*
