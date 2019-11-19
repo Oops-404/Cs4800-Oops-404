@@ -137,24 +137,44 @@ public class EventController {
 		return eventService.getEventsByStartTime(localStartTime);
 	}
 	
+	/**
+	 * Get all events that start in the morning (5:00 AM)
+	 * 
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/startTime/morning")
 	public List<Event> getEventsMorning() {
 		log.info("Getting events that start in the morning...");
 		return eventService.getEventsByStartTimeMorning();
 	}
 	
+	/**
+	 * Get all events that start in the afternoon (12:00 PM)
+	 * 
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/startTime/afternoon")
 	public List<Event> getEventsAfternoon() {
 		log.info("Getting events that start in the afternoon...");
 		return eventService.getEventsByStartTimeAfternoon();
 	}
 	
+	/**
+	 * Get all events that start in the evening (5:00 PM)
+	 * 
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/startTime/evening")
 	public List<Event> getEventsEvening() {
 		log.info("Getting events that start in the evening...");
 		return eventService.getEventsByStartTimeEvening();
 	}
 	
+	/**
+	 * Get all events that start at night (8:00 PM)
+	 *  
+	 * @return list of events that match the query search
+	 */
 	@GetMapping("/startTime/night")
 	public List<Event> getEventsNight() {
 		log.info("Getting events that start at night...");
@@ -192,20 +212,6 @@ public class EventController {
 		LocalDate today = LocalDate.now();
 		log.info("Deleting events that ended before: " + today);
 		List<Event> toDelete = eventService.getEventsThatEnded(today);
-		for (int i=0; i<toDelete.size(); i++) {
-			UUID id = toDelete.get(i).getEventId();
-			log.info("Deleting event that has ended with event ID: " + id);
-			eventService.deleteEvent(id);
-		}
-	}
-	
-	/**
-	 * Delete all events 
-	 */
-	@DeleteMapping("/deleteAll")
-	public void deleteAll() {
-		log.info("Deleting ALL events...");
-		List<Event> toDelete = eventService.getAllEvents();
 		for (int i=0; i<toDelete.size(); i++) {
 			UUID id = toDelete.get(i).getEventId();
 			log.info("Deleting event that has ended with event ID: " + id);

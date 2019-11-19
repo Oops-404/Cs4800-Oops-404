@@ -86,30 +86,31 @@ public interface EventService {
 	/**
 	 * Query for events by event start time in the morning (5:00 AM)
 	 * 
-	 * @return
+	 * @return list of events
 	 */
 	List<Event> getEventsByStartTimeMorning();
 	
 	/**
 	 * Query for events by event start time in the afternoon (12:00 PM)
 	 * 
-	 * @return
+	 * @return list of events
 	 */
 	List<Event> getEventsByStartTimeAfternoon();
 	
 	/**
 	 * Query for events by event start time in the evening (5:00 PM)
-	 * 
-	 * @return
+	 *  
+	 * @return list of events
 	 */
 	List<Event> getEventsByStartTimeEvening();
 	
 	/**
 	 * Query for events by event start time at night (8:00 PM)
 	 * 
-	 * @return
+	 * @return list of events
 	 */
 	List<Event> getEventsByStartTimeNight();
+	
 	/**
 	 * Query for events by event category.
 	 * 

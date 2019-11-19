@@ -70,7 +70,7 @@ public class UserController {
 	@PatchMapping("/addCalendar")
 	public User addCalendar(@RequestBody User user, @RequestParam(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
 		user.addCalendar(calendarId);
-		log.info("Adding calendar to user...");
+		log.info("Adding calendar: " + " to user: " + userId);
 		return userService.addCalendarToUser(user, userId, calendarId);
 	}
 	
@@ -140,7 +140,7 @@ public class UserController {
 	 */
 	@DeleteMapping("/deleteCalendar")
 	public void deleteCalendar(@RequestParam(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
-		log.info("Deleting calendar from user with calendar ID: " + calendarId);
+		log.info("Deleting calendar: " + calendarId + " from user: " + userId);
 		userService.deleteCalendarFromUser(userId, calendarId);
 	}
 }
