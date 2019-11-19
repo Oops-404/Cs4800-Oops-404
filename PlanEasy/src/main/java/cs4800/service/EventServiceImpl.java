@@ -85,29 +85,37 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Event> getEventsByStartTimeMorning() {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
-		LocalTime startTime = LocalTime.parse("5:00 AM", formatTime);
-		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+		LocalTime startTime1 = LocalTime.parse("5:00 AM", formatTime);
+		LocalTime startTime2 = LocalTime.parse("11:59 AM", formatTime);
+
+		return eventDAO.findByStartTimeBetweenOrderByStartTimeAsc(startTime1, startTime2);
 	}
 	
 	@Override
 	public List<Event> getEventsByStartTimeAfternoon() {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
-		LocalTime startTime = LocalTime.parse("12:00 PM", formatTime);		
-		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+		LocalTime startTime1 = LocalTime.parse("12:00 PM", formatTime);		
+		LocalTime startTime2 = LocalTime.parse("4:59 PM", formatTime);
+
+		return eventDAO.findByStartTimeBetweenOrderByStartTimeAsc(startTime1, startTime2);
 	}
 	
 	@Override
 	public List<Event> getEventsByStartTimeEvening() {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
-		LocalTime startTime = LocalTime.parse("5:00 PM", formatTime);		
-		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+		LocalTime startTime1 = LocalTime.parse("5:00 PM", formatTime);		
+		LocalTime startTime2 = LocalTime.parse("7:59 PM", formatTime);
+
+		return eventDAO.findByStartTimeBetweenOrderByStartTimeAsc(startTime1, startTime2);
 	}
 
 	@Override
 	public List<Event> getEventsByStartTimeNight() {
 		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("h:mm a");
-		LocalTime startTime = LocalTime.parse("8:00 PM", formatTime);		
-		return eventDAO.findByStartTimeGreaterThanEqualOrderByStartTimeAsc(startTime);
+		LocalTime startTime1 = LocalTime.parse("8:00 PM", formatTime);		
+		LocalTime startTime2 = LocalTime.parse("11:59 PM", formatTime);
+
+		return eventDAO.findByStartTimeBetweenOrderByStartTimeAsc(startTime1, startTime2);
 	}
 
 	@Override
