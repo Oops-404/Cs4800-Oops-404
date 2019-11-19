@@ -117,10 +117,12 @@ public class Event implements EventInterface {
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
+		this.startDate = localStartDate;
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
+		this.endDate = localEndDate;
 		this.endYear = localEndDate.getYear();
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
@@ -147,10 +149,12 @@ public class Event implements EventInterface {
 		LocalDate localStartDate = LocalDate.parse(startDate, formatDate);
 		LocalDate localEndDate = LocalDate.parse(endDate, formatDate);
 		
+		this.startDate = localStartDate;
 		this.startYear = localStartDate.getYear();
 		this.startMonth = localStartDate.getMonth();
 		this.startDay = localStartDate.getDayOfMonth();
 		
+		this.endDate = localEndDate;
 		this.endYear = localEndDate.getYear();
 		this.endMonth = localEndDate.getMonth();
 		this.endDay = localEndDate.getDayOfMonth();
