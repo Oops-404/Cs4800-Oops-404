@@ -67,8 +67,8 @@ public class UserController {
 	 * @param calendarId
 	 * @return updated user
 	 */
-	@PatchMapping("/addCalendar/{userId}")
-	public User addCalendar(@RequestBody User user, @PathVariable(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
+	@PatchMapping("/addCalendar")
+	public User addCalendar(@RequestBody User user, @RequestParam(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
 		user.addCalendar(calendarId);
 		log.info("Adding calendar to user...");
 		return userService.addCalendarToUser(user, userId, calendarId);
@@ -138,8 +138,8 @@ public class UserController {
 	 * @param userId
 	 * @param calendarId
 	 */
-	@DeleteMapping("/deleteCalendar/{userId}")
-	public void deleteCalendar(@PathVariable(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
+	@DeleteMapping("/deleteCalendar")
+	public void deleteCalendar(@RequestParam(name = "userId") UUID userId, @RequestParam(name = "calendarId") UUID calendarId) {
 		log.info("Deleting calendar from user with calendar ID: " + calendarId);
 		userService.deleteCalendarFromUser(userId, calendarId);
 	}

@@ -30,7 +30,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param name - part of event name
 	 * @return list of events
 	 */
-	List<Event> findAllByNameContainingIgnoreCase(String name);
+	List<Event> findByNameContainingIgnoreCase(String name);
 	
 	/**
 	 * Get all events containing this string in the event location
@@ -38,7 +38,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param location - part of event location
 	 * @return list of events
 	 */
-	List<Event> findAllByLocationContainingIgnoreCase(String location);
+	List<Event> findByLocationContainingIgnoreCase(String location);
 	
 	/**
 	 * Get all events that start on this date or later
@@ -46,7 +46,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param startDate - starting date of event
 	 * @return list of events
 	 */
-	List<Event> findAllByStartDateGreaterThanEqual(LocalDate startDate);
+	List<Event> findByStartDateGreaterThanEqual(LocalDate startDate);
 	
 	/**
 	 * Get all events that start at this time or later
@@ -54,7 +54,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param startTime - starting time of event
 	 * @return list of events
 	 */
-	List<Event> findAllByStartTimeGreaterThanEqual(LocalTime startTime);
+	List<Event> findByStartTimeGreaterThanEqual(LocalTime startTime);
 	
 	/**
 	 * Get all events that start at this time or later
@@ -62,7 +62,7 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param category - starting time of event
 	 * @return list of events
 	 */
-	List<Event> findAllByCategoryIgnoreCase(String category);
+	List<Event> findByCategoryIgnoreCase(String category);
 	
 	/**
 	 * Get all events that ended before this date 
@@ -70,5 +70,5 @@ public interface EventDAO extends MongoRepository<Event, UUID> {
 	 * @param endDate - ending date of event
 	 * @return list of events
 	 */
-	List<Event> findAllByEndDateBefore(LocalDate endDate);
+	List<Event> findByEndDateBefore(LocalDate endDate);
 }

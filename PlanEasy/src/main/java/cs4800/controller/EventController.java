@@ -177,5 +177,17 @@ public class EventController {
 		}
 	}
 	
-	
+	/**
+	 * Delete all events 
+	 */
+	@DeleteMapping("/deleteAll")
+	public void deleteAll() {
+		log.info("Deleting ALL events...");
+		List<Event> toDelete = eventService.getAllEvents();
+		for (int i=0; i<toDelete.size(); i++) {
+			UUID id = toDelete.get(i).getEventId();
+			log.info("Deleting event that has ended with event ID: " + id);
+			eventService.deleteEvent(id);
+		}
+	}
 }

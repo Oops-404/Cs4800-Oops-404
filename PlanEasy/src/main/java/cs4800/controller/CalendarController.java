@@ -68,8 +68,8 @@ public class CalendarController {
 	 * @param eventId
 	 * @return updated calendar
 	 */
-	@PatchMapping("/addEvent/{calendarId}")
-	public Calendar addEvent(@RequestBody Calendar calendar, @PathVariable(name = "calendarId") UUID calendarId, @RequestParam(name = "eventId") UUID eventId) {
+	@PatchMapping("/addEvent")
+	public Calendar addEvent(@RequestBody Calendar calendar, @RequestParam(name = "calendarId") UUID calendarId, @RequestParam(name = "eventId") UUID eventId) {
 		calendar.addEventToCalendar(eventId);
 		log.info("Adding event to calendar...");
 		return calendarService.addEventToCalendar(calendar, calendarId, eventId);
@@ -117,10 +117,10 @@ public class CalendarController {
 	 * @param eventId
 	 * @return updated calendar
 	 */
-	@DeleteMapping("/deleteEvent/{calendarId}")
-	public void deleteEvent(@PathVariable(name = "calendarId") UUID calendarId, @RequestParam(name = "eventId") UUID eventId) {
-		log.info("Deleting event from calendar with event ID: " + eventId);
+	@DeleteMapping("/deleteEvent")
+	public void deleteEvent(@RequestParam(name = "calendarId") UUID calendarId, @RequestParam(name = "eventId") UUID eventId) {
+		log.info("Deleting event from calendar ID: " + calendarId + " with event ID: " + eventId);
 		calendarService.removeEventFromCalendar(calendarId, eventId);
 	}
-	
+		
 }
