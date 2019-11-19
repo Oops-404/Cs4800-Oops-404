@@ -1,9 +1,10 @@
 {
-  "name": "material-dashboard-react",
+  "name": "plan-easily",
   "version": "1.8.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
+  "description": "Plan Easily",
   "private": false,
   "main": "dist/index.js",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "4.3.2",
     "@material-ui/icons": "4.2.1",
