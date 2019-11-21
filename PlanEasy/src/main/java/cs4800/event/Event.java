@@ -333,11 +333,13 @@ public class Event implements EventInterface {
 
 	@Override
 	public LocalTime getStartTime() {
+		this.startTime = LocalTime.of(startHour, startMinute);
 		return startTime;
 	}
 
 	@Override
 	public LocalTime getEndTime() {
+		this.endTime = LocalTime.of(endHour, endMinute);
 		return endTime;
 	}	
 	
@@ -353,6 +355,7 @@ public class Event implements EventInterface {
 	
 	@Override
 	public LocalDate getStartDate() {
+		this.startDate = LocalDate.of(startYear, startMonth.getValue(), startDay);
 		return startDate;
 	}
 	
@@ -371,6 +374,7 @@ public class Event implements EventInterface {
 	
 	@Override
 	public LocalDate getEndDate() {
+		this.endDate = LocalDate.of(endYear, endMonth.getValue(), endDay);
 		return endDate;
 	}
 	
