@@ -13,6 +13,7 @@ export default class EventList extends React.Component {
             isLoaded: false,
             events1: [],
             url: "/events/"
+            //url: "http://planeasily.net:8080/events/" //uncomment this on prod
         };
 
         this.handleTimeChange = this.handleTimeChange.bind(this);
@@ -24,25 +25,25 @@ export default class EventList extends React.Component {
 
     handleTimeChange(event) {
         this.setState({isLoaded:false})
-        let url = "/events/";
+        let url = this.state.url;
         switch(event.target.value){
             case "morning":
                     this.setState({ time: event.target.value});
-                    url= "/events/startTime/morning";
+                    url += "startTime/morning";
                     break;
             case "afternoon":
                     this.setState({ time: event.target.value});
-                    url= "/events/startTime/afternoon";
+                    url += "startTime/afternoon";
 
                     break;
             case "evening":
                     this.setState({ time: event.target.value});
-                    url= "/events/startTime/evening";
+                    url += "startTime/evening";
 
                     break;
             case "night":
                     this.setState({ time: event.target.value,});
-                    url= "/events/startTime/night";
+                    url += "startTime/night";
 
                     break;
             default:
@@ -65,16 +66,18 @@ export default class EventList extends React.Component {
 
 
     componentDidMount() {
-        this.getEvent("/events/");
+        this.getEvent(this.state.url);
 
     };
 
     getEvent(url){
         fetch(url)
             .then((response) => {
-                return response.json();
+                return response.json(); //comment this out for now
+                //return response.text();         // add this
             })
             .then(data => {
+                //console.log(data)// add this
                 this.setState({ events1: data, isLoaded: true })
             }).catch(error => {
                 console.log(error);
