@@ -29,14 +29,14 @@ export default function Home() {
                     </CardHeader>
                     <CardBody className={classes.textCenter}>
                         <h5>Created By:</h5>
-                        <Primary>
+                        <div style={{color:"#3986DD"}}>
 
                             <h4>Adam Jonhs</h4>
                             <h4>Diane Nguyen</h4>
                             <h4>Nick Soultanian</h4>
                             <h4>Theresa Van</h4>
                             <h4>Annie Wu</h4>
-                        </Primary>
+                        </div>
                     </CardBody>
 
                 </Card>
