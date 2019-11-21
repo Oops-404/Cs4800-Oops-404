@@ -73,7 +73,7 @@ public class App extends SpringBootServletInitializer implements CommandLineRunn
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("---TESTING---");
-//		webscrape.loadData();
+		webscrape.loadData();
 	}
     
 }
